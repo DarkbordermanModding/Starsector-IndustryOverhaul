@@ -24,6 +24,7 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 	public static float OFFICER_PROB_MOD_MEGA = 0.2f;
 
 	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
+	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.20f;
 
 	public static final float ALPHA_CORE_ACCESSIBILITY = 0.2f;
 	public static final float STATIC_ACCESSIBILITY = 0.70f;
@@ -62,7 +63,12 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 		}
 		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
 		market.getHazard().modifyFlat(getModId(0), -0.25f, desc);
-		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyMult(getModId(0), 2f, desc);
+
+		if(isImproved()){
+			market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(
+				getModId(0), IMRPOVE_FLEET_SIZE_MULT, desc
+			);
+		}
 
 		float officerProb = OFFICER_PROB_MOD_MEGA;
 		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), officerProb);
@@ -110,7 +116,6 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 			float bonus = getPopulationGrowthBonus();
 
 			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
-			tooltip.addPara("Fleet size: %s", opad, h, "x" + 2f);
 		}
 	}
 
@@ -168,6 +173,27 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 	@Override
 	public boolean canImprove() {
+		return true;
+	}
+
+	@Override
+	protected boolean canImproveToIncreaseProduction() {
 		return false;
+	}
+
+	public void addImproveDesc(TooltipMakerAPI info, ImprovementDescriptionMode mode) {
+		float opad = 10f;
+		Color highlight = Misc.getHighlightColor();
+
+		String str = "" + (int)Math.round(IMRPOVE_FLEET_SIZE_MULT * 100f);
+
+		if (mode == ImprovementDescriptionMode.INDUSTRY_TOOLTIP) {
+			info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
+		} else {
+			info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
+		}
+
+		info.addSpacer(opad);
+		super.addImproveDesc(info, mode);
 	}
 }
