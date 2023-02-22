@@ -30,7 +30,7 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 	public static final float STATIC_ACCESSIBILITY = 0.70f;
 
 	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
-	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.1f;
+	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
 
 	public void apply() {
 		super.apply(true);
@@ -118,7 +118,9 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 			float opad = 10f;
 			float bonus = getPopulationGrowthBonus();
 			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
-			tooltip.addPara("Accessibility is lock to %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
+			tooltip.addPara("Accessibility is lock to: %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
+			tooltip.addPara("Ground defense: %s", opad, h, "+" + (int)GROUND_DEFENSES_FLAT);
+			tooltip.addPara("Hazard rating: %s", opad, h, (int)(HAZARD_FLAT * 100f) + "%");
 		}
 	}
 
@@ -160,17 +162,19 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 		if (mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
 			CommoditySpecAPI coreSpec = Global.getSettings().getCommoditySpec(aiCoreId);
 			TooltipMakerAPI text = tooltip.beginImageWithText(coreSpec.getIconName(), 48);
-			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit.", 0f, highlight,
+			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
 				"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
-				"" + DEMAND_REDUCTION
+				"" + DEMAND_REDUCTION,
+				"x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
 			);
 			tooltip.addImageWithText(opad);
 			return;
 		}
 
-		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit.", 0f, highlight,
+		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
 			"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
-			"" + DEMAND_REDUCTION
+			"" + DEMAND_REDUCTION,
+			"x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
 		);
 	}
 
