@@ -35,14 +35,11 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 		int size = market.getSize();
 
-		boolean megaport = true;
-
 		demand(Commodities.FUEL, size);
 		demand(Commodities.SUPPLIES, size);
 		demand(Commodities.SHIPS, size);
 
 		supply(Commodities.CREW, size + 1);
-		supply(Commodities.MARINES, size);
 
 		String desc = getNameForModifier();
 
@@ -67,8 +64,7 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 		market.getHazard().modifyFlat(getModId(0), -0.25f, desc);
 		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyMult(getModId(0), 2f, desc);
 
-		float officerProb = OFFICER_PROB_MOD;
-		if (megaport) officerProb = OFFICER_PROB_MOD_MEGA;
+		float officerProb = OFFICER_PROB_MOD_MEGA;
 		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), officerProb);
 
 		if (!isFunctional()) {
