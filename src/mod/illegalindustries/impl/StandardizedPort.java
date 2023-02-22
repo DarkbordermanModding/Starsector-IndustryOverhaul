@@ -28,7 +28,6 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 	public static final float ALPHA_CORE_ACCESSIBILITY = 0.2f;
 	public static final float STATIC_ACCESSIBILITY = 0.70f;
-	public static final float MARKET_REDUCE_UPKEEP = 0.25f;
 
 	public void apply() {
 		super.apply(true);
@@ -114,7 +113,6 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 			Color h = Misc.getHighlightColor();
 			float opad = 10f;
 			float bonus = getPopulationGrowthBonus();
-
 			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
 		}
 	}
@@ -130,12 +128,10 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 	@Override
 	protected void applyAlphaCoreModifiers() {
-		market.getAccessibilityMod().modifyFlat(getModId(2), ALPHA_CORE_ACCESSIBILITY, "Alpha core (" + getNameForModifier() + ")");
 	}
 
 	@Override
 	protected void applyNoAICoreModifiers() {
-		market.getAccessibilityMod().unmodifyFlat(getModId(2));
 	}
 
 	@Override
@@ -151,24 +147,22 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 		if (mode == AICoreDescriptionMode.MANAGE_CORE_DIALOG_LIST || mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
 			pre = "Alpha-level AI core. ";
 		}
-		float a = ALPHA_CORE_ACCESSIBILITY;
-		String aStr = "" + (int)Math.round(a * 100f) + "%";
 
 		if (mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
 			CommoditySpecAPI coreSpec = Global.getSettings().getCommoditySpec(aiCoreId);
 			TooltipMakerAPI text = tooltip.beginImageWithText(coreSpec.getIconName(), 48);
-			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. " +
-					"Increases accessibility by %s.", 0f, highlight,
-					"" + (int)((1f - UPKEEP_MULT) * 100f) + "%", "" + DEMAND_REDUCTION,
-					aStr);
+			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit.", 0f, highlight,
+				"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
+				"" + DEMAND_REDUCTION
+			);
 			tooltip.addImageWithText(opad);
 			return;
 		}
 
-		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. " +
-				"Increases accessibility by %s.", opad, highlight,
-				"" + (int)((1f - UPKEEP_MULT) * 100f) + "%", "" + DEMAND_REDUCTION,
-				aStr);
+		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit.", 0f, highlight,
+			"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
+			"" + DEMAND_REDUCTION
+		);
 	}
 
 	@Override
