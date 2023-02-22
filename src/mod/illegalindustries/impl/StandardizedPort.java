@@ -24,10 +24,13 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 	public static float OFFICER_PROB_MOD_MEGA = 0.2f;
 
 	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
-	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.20f;
 
-	public static final float ALPHA_CORE_ACCESSIBILITY = 0.2f;
+	public static final float GROUND_DEFENSES_FLAT = 20f;
+	public static final float HAZARD_FLAT = -0.25f;
 	public static final float STATIC_ACCESSIBILITY = 0.70f;
+
+	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
+	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.1f;
 
 	public void apply() {
 		super.apply(true);
@@ -61,7 +64,8 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 			}
 		}
 		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
-		market.getHazard().modifyFlat(getModId(0), -0.25f, desc);
+		market.getHazard().modifyFlat(getModId(0), HAZARD_FLAT, desc);
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(0), GROUND_DEFENSES_FLAT, desc);
 
 		if(isImproved()){
 			market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(
@@ -114,6 +118,7 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 			float opad = 10f;
 			float bonus = getPopulationGrowthBonus();
 			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
+			tooltip.addPara("Accessibility is lock to %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
 		}
 	}
 
@@ -128,10 +133,14 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 	@Override
 	protected void applyAlphaCoreModifiers() {
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
+		.modifyMult(getModId(1), 1f + ALPHA_CORE_GROUND_DEFENSES_MULT, getNameForModifier());
 	}
 
 	@Override
 	protected void applyNoAICoreModifiers() {
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
+		.unmodifyMult(getModId(1));
 	}
 
 	@Override
