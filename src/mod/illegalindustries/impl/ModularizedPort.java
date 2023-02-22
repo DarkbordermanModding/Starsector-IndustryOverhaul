@@ -30,7 +30,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 	public static final float STATIC_ACCESSIBILITY = 0.70f;
 
 	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
-	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
+	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
 
 	public void apply() {
 		super.apply(true);

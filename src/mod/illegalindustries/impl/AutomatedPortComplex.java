@@ -18,15 +18,19 @@ import com.fs.starfarer.api.util.Pair;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 
+
 public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrationModifier {
 
 	public static float OFFICER_PROB_MOD_MEGA = 0.2f;
 
 	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
 
-	public static final float ALPHA_CORE_ACCESSIBILITY = 0.2f;
-	public static final float STATIC_ACCESSIBILITY = 0.70f;
-	public static final float MARKET_REDUCE_UPKEEP = 0.25f;
+	public static final float GROUND_DEFENSES_FLAT = 50f;
+	public static final float HAZARD_FLAT = -0.50f;
+	public static final float STATIC_ACCESSIBILITY = 1.00f;
+
+	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.20f;
+	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
 
 	public void apply() {
 		super.apply(true);
@@ -38,7 +42,7 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 		demand(Commodities.SHIPS, size);
 
 		supply(Commodities.CREW, size + 1);
-		supply(Commodities.MARINES, size);
+		supply(Commodities.MARINES, size -1);
 
 		String desc = getNameForModifier();
 
@@ -55,13 +59,19 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 
 		float total = 0f;
 		for(Map.Entry<String, StatMod> entry: market.getAccessibilityMod().getFlatBonuses().entrySet()) {
-			if(!entry.getKey().equals("modularizedport")){
+			if(!entry.getKey().equals("automatedportcomplex")){
 				total += entry.getValue().value;
 			}
 		}
 		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
-		market.getHazard().modifyFlat(getModId(0), -0.25f, desc);
-		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyMult(getModId(0), 2f, desc);
+		market.getHazard().modifyFlat(getModId(0), HAZARD_FLAT, desc);
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(0), GROUND_DEFENSES_FLAT, desc);
+
+		if(isImproved()){
+			market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(
+				getModId(0), IMRPOVE_FLEET_SIZE_MULT, desc
+			);
+		}
 
 		float officerProb = OFFICER_PROB_MOD_MEGA;
 		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), officerProb);
@@ -107,9 +117,10 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 			Color h = Misc.getHighlightColor();
 			float opad = 10f;
 			float bonus = getPopulationGrowthBonus();
-
 			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
-			tooltip.addPara("Fleet size: %s", opad, h, "x" + 2f);
+			tooltip.addPara("Accessibility is lock to: %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
+			tooltip.addPara("Ground defense: %s", opad, h, "+" + (int)GROUND_DEFENSES_FLAT);
+			tooltip.addPara("Hazard rating: %s", opad, h, (int)(HAZARD_FLAT * 100f) + "%");
 		}
 	}
 
@@ -124,12 +135,14 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 
 	@Override
 	protected void applyAlphaCoreModifiers() {
-		market.getAccessibilityMod().modifyFlat(getModId(2), ALPHA_CORE_ACCESSIBILITY, "Alpha core (" + getNameForModifier() + ")");
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
+		.modifyMult(getModId(1), 1f + ALPHA_CORE_GROUND_DEFENSES_MULT, getNameForModifier());
 	}
 
 	@Override
 	protected void applyNoAICoreModifiers() {
-		market.getAccessibilityMod().unmodifyFlat(getModId(2));
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
+		.unmodifyMult(getModId(1));
 	}
 
 	@Override
@@ -145,28 +158,49 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 		if (mode == AICoreDescriptionMode.MANAGE_CORE_DIALOG_LIST || mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
 			pre = "Alpha-level AI core. ";
 		}
-		float a = ALPHA_CORE_ACCESSIBILITY;
-		String aStr = "" + (int)Math.round(a * 100f) + "%";
 
 		if (mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
 			CommoditySpecAPI coreSpec = Global.getSettings().getCommoditySpec(aiCoreId);
 			TooltipMakerAPI text = tooltip.beginImageWithText(coreSpec.getIconName(), 48);
-			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. " +
-					"Increases accessibility by %s.", 0f, highlight,
-					"" + (int)((1f - UPKEEP_MULT) * 100f) + "%", "" + DEMAND_REDUCTION,
-					aStr);
+			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
+				"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
+				"" + DEMAND_REDUCTION,
+				"x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
+			);
 			tooltip.addImageWithText(opad);
 			return;
 		}
 
-		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. " +
-				"Increases accessibility by %s.", opad, highlight,
-				"" + (int)((1f - UPKEEP_MULT) * 100f) + "%", "" + DEMAND_REDUCTION,
-				aStr);
+		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
+			"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
+			"" + DEMAND_REDUCTION,
+			"x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
+		);
 	}
 
 	@Override
 	public boolean canImprove() {
+		return true;
+	}
+
+	@Override
+	protected boolean canImproveToIncreaseProduction() {
 		return false;
+	}
+
+	public void addImproveDesc(TooltipMakerAPI info, ImprovementDescriptionMode mode) {
+		float opad = 10f;
+		Color highlight = Misc.getHighlightColor();
+
+		String str = "" + (int)Math.round(IMRPOVE_FLEET_SIZE_MULT * 100f);
+
+		if (mode == ImprovementDescriptionMode.INDUSTRY_TOOLTIP) {
+			info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
+		} else {
+			info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
+		}
+
+		info.addSpacer(opad);
+		super.addImproveDesc(info, mode);
 	}
 }
