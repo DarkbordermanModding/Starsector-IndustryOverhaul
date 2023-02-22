@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/commons-compiler-jdk.jar"/>
+	<classpathentry kind="lib" path="libs/commons-compiler.jar"/>
+	<classpathentry kind="lib" path="libs/fs.common_obf.jar"/>
+	<classpathentry kind="lib" path="libs/fs.sound_obf.jar"/>
+	<classpathentry kind="lib" path="libs/janino.jar"/>
+	<classpathentry kind="lib" path="libs/jinput.jar"/>
+	<classpathentry kind="lib" path="libs/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="libs/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="libs/json.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="libs/lwjgl.jar"/>
+	<classpathentry kind="lib" path="libs/starfarer_obf.jar"/>
+	<classpathentry kind="lib" path="libs/starfarer.api.jar"/>
+	<classpathentry kind="lib" path="libs/xstream-1.4.10.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
