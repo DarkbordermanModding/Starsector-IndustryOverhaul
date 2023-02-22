@@ -15,8 +15,6 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 
-import mod.illegalindustries.Utilities;
-
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 
@@ -28,11 +26,9 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
 
-	public static final float BASE_ACCESSIBILITY = 0.5f;
-	public static final float MEGAPORT_ACCESSIBILITY = 0.8f;
-
 	public static final float ALPHA_CORE_ACCESSIBILITY = 0.2f;
-	public static final float IMPROVE_ACCESSIBILITY = 0.2f;
+	public static final float STATIC_ACCESSIBILITY = 0.70f;
+	public static final float MARKET_REDUCE_UPKEEP = 0.25f;
 
 	public void apply() {
 		super.apply(true);
@@ -67,7 +63,8 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 				total += entry.getValue().value;
 			}
 		}
-		market.getAccessibilityMod().modifyFlat(getModId(0), Utilities.getStandardizedPortAccessibility() - total, desc);
+		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
+		market.getHazard().modifyFlat(getModId(0), -0.25f, desc);
 		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyMult(getModId(0), 2f, desc);
 
 		float officerProb = OFFICER_PROB_MOD;
@@ -92,6 +89,7 @@ public class StandardizedPort extends BaseIndustry implements MarketImmigrationM
 
 		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).unmodifyFlat(getModId(0));
 		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).unmodifyMult(getModId(0));
+		market.getHazard().unmodifyFlat(getModId(0));
 	}
 
 	protected float getUpkeepPenalty(Pair<String, Integer> deficit) {
