@@ -37,12 +37,12 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 
 		int size = market.getSize();
 
-		demand(Commodities.FUEL, size);
-		demand(Commodities.SUPPLIES, size);
-		demand(Commodities.SHIPS, size);
+		demand(Commodities.FUEL, size + 2);
+		demand(Commodities.SUPPLIES, size + 2);
+		demand(Commodities.SHIPS, size + 2);
 
-		supply(Commodities.CREW, size + 1);
-		supply(Commodities.MARINES, size -1);
+		supply(Commodities.CREW, size + 2);
+		supply(Commodities.MARINES, size);
 
 		String desc = getNameForModifier();
 
