@@ -44,6 +44,7 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 		supply(Commodities.CREW, size + 2);
 		supply(Commodities.MARINES, size);
 		supply(Commodities.DRUGS, size);
+		supply(Commodities.ORGANS, size - 1);
 
 		String desc = getNameForModifier();
 
