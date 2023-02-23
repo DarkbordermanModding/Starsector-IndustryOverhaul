@@ -15,7 +15,7 @@ public class DrugProduction extends BaseIndustry {
 		int size = market.getSize();
 		demand(Commodities.ORGANICS, size);
 		demand(Commodities.FOOD, size);
-		supply(Commodities.DRUGS, size);
+		supply(Commodities.DRUGS, size + 1);
 
 		Pair<String, Integer> deficit = getMaxDeficit(Commodities.ORGANICS, Commodities.FOOD);
 		applyDeficitToProduction(1, deficit,Commodities.DRUGS);

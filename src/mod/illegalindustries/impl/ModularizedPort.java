@@ -43,6 +43,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 
 		supply(Commodities.CREW, size + 1);
 		supply(Commodities.MARINES, size -1);
+		supply(Commodities.DRUGS, size - 1);
 
 		String desc = getNameForModifier();
 
