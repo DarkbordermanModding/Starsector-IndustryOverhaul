@@ -37,9 +37,9 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 
 		int size = market.getSize();
 
-		demand(Commodities.FUEL, size + 1);
-		demand(Commodities.SUPPLIES, size + 1);
-		demand(Commodities.SHIPS, size + 1);
+		demand(Commodities.FUEL, size);
+		demand(Commodities.SUPPLIES, size);
+		demand(Commodities.SHIPS, size);
 
 		supply(Commodities.CREW, size + 1);
 		supply(Commodities.MARINES, size -1);
