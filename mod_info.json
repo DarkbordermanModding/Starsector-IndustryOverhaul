@@ -4,6 +4,6 @@
 	"author":"Darkborderman",
 	"version":"0.0.0",
 	"description":"Add several overpowered industries to enchance gameplay experience.",
-	"gameVersion":"0.95.1a-RC6",
+	"gameVersion":"0.96a-RC10",
 	"jars": ["jars/illegalindustries.jar"]
 }
