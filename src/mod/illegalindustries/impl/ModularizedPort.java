@@ -49,7 +49,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 		demand(Commodities.SUPPLIES, size -1);
 		demand(Commodities.SHIPS, size -1);
 
-		supply(Commodities.CREW, size);
+		supply(Commodities.CREW, size + 1);
 		supply(Commodities.MARINES, size - 2);
 		supply(Commodities.DRUGS, size - 2);
 		supply(Commodities.ORGANS, size - 3);
