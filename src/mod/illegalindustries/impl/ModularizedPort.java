@@ -75,7 +75,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 		}
 		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
 		market.getHazard().modifyFlat(getModId(0), HAZARD_FLAT, desc);
-		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(0), GROUND_DEFENSES_FLAT, desc);
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(), GROUND_DEFENSES_FLAT, desc);
 
 		if(isImproved()){
 			market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(
@@ -102,6 +102,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 		market.getAccessibilityMod().unmodifyFlat(getModId(1));
 		market.getAccessibilityMod().unmodifyFlat(getModId(2));
 
+		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyFlat(getModId());
 		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).unmodifyFlat(getModId(0));
 		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).unmodifyMult(getModId(0));
 		market.getHazard().unmodifyFlat(getModId(0));
