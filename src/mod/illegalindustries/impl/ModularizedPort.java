@@ -3,6 +3,9 @@ package mod.illegalindustries.impl;
 import java.awt.Color;
 import java.util.Map;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -43,6 +46,12 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 			GROUND_DEFENSES_FLAT = 50f;
 			IMRPOVE_FLEET_SIZE_MULT = 0.20f;
 			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
+		}else{
+			HAZARD_FLAT = -0.25f;
+			STATIC_ACCESSIBILITY = 0.70f;
+			GROUND_DEFENSES_FLAT = 20f;
+			IMRPOVE_FLEET_SIZE_MULT = 0.10f;
+			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
 		}
 
 		demand(Commodities.FUEL, size -1);
