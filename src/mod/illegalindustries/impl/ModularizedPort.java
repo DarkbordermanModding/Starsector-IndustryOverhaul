@@ -36,6 +36,14 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 		super.apply(true);
 
 		int size = market.getSize();
+		boolean isComplex = getId().equals("automatedportcomplex");
+		if(isComplex){
+			HAZARD_FLAT = -0.50f;
+			STATIC_ACCESSIBILITY = 1.00f;
+			GROUND_DEFENSES_FLAT = 50f;
+			IMRPOVE_FLEET_SIZE_MULT = 0.20f;
+			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
+		}
 
 		demand(Commodities.FUEL, size -1);
 		demand(Commodities.SUPPLIES, size -1);
@@ -61,7 +69,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 
 		float total = 0f;
 		for(Map.Entry<String, StatMod> entry: market.getAccessibilityMod().getFlatBonuses().entrySet()) {
-			if(!entry.getKey().equals("modularizedport")){
+			if(!entry.getKey().equals(getId())){
 				total += entry.getValue().value;
 			}
 		}

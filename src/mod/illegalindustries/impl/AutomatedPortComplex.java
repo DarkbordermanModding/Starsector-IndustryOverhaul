@@ -25,9 +25,9 @@ public class AutomatedPortComplex extends BaseIndustry implements MarketImmigrat
 
 	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
 
-	public static final float GROUND_DEFENSES_FLAT = 50f;
-	public static final float HAZARD_FLAT = -0.50f;
-	public static final float STATIC_ACCESSIBILITY = 1.00f;
+	public static final float GROUND_DEFENSES_FLAT = 50f;  //done
+	public static final float HAZARD_FLAT = -0.50f;  //done
+	public static final float STATIC_ACCESSIBILITY = 1.00f;  //done
 
 	public static final float IMRPOVE_FLEET_SIZE_MULT = 0.20f;
 	public static final float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
