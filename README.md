@@ -1,6 +1,6 @@
-# IllegalIndustries
+# IndustryOverhaul
 
-![Integration](https://github.com/DarkbordermanModding/Starsector-IllegalIndustries/workflows/Integration/badge.svg)
+![Integration](https://github.com/DarkbordermanModding/Starsector-IndustryOverhaul/workflows/Integration/badge.svg)
 
 Add several overpowered industries to enchance gameplay experience in Starsector.
 

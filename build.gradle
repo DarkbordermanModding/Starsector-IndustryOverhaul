@@ -10,7 +10,7 @@ apply plugin: 'java'
 sourceSets.main.java.srcDir 'src'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-archivesBaseName = 'illegalindustries'
+archivesBaseName = 'industryoverhaul'
 
 build {
     doLast {
