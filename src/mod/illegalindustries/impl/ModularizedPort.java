@@ -136,7 +136,9 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 	}
 
 	public float getPopulationGrowthBonus() {
-		return market.getSize();
+		boolean isComplex = getId().equals("automatedportcomplex");
+		if(isComplex) return market.getSize() + 2;
+		return market.getSize() + 1;
 	}
 
 	public void modifyIncoming(MarketAPI market, PopulationComposition incoming) {
