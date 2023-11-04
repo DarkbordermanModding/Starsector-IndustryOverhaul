@@ -15,10 +15,17 @@ public class ConditionModifierIndustry extends BaseIndustry {
         super.apply(true);
     }
 
+    // Can build if ALL of it exists
     protected List<String> getRequiredConditions(){
         return new ArrayList<String>();
     }
 
+    // Can build if ANY of it exists
+    protected List<String> getRequiredAnyConditions(){
+        return new ArrayList<String>();
+    }
+
+    // Can't build if any of it exists
     protected List<String> getPreventConditions(){
         return new ArrayList<String>();
     }
@@ -39,7 +46,11 @@ public class ConditionModifierIndustry extends BaseIndustry {
         for(String condition: getRequiredConditions()){
             if(!getMarket().hasCondition(condition)) return false;
         }
-		return true;
+        for(String condition: getRequiredAnyConditions()){
+            if(getMarket().hasCondition(condition)) return true;
+            return false;
+        }
+        return true;
 	}
 
 	@Override
