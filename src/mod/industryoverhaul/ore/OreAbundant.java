@@ -1,39 +1,17 @@
 package mod.industryoverhaul.ore;
 
-import com.fs.starfarer.api.campaign.econ.Industry;
-import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
+import mod.industryoverhaul.ConditionModifierIndustry;
 
-public class OreAbundant extends BaseIndustry {
 
-	@Override
-	public void apply() {
-		super.apply(true);
-	}
+public class OreAbundant extends ConditionModifierIndustry {
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
- 		getMarket().removeCondition(Conditions.ORE_MODERATE);
-		getMarket().addCondition(Conditions.ORE_ABUNDANT);
-		getMarket().getCondition(Conditions.ORE_ABUNDANT).setSurveyed(true);
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry("upgradeoreabundant", null, false);
-	}
-
-	@Override
-	public boolean isAvailableToBuild() {
-		if(getMarket().hasCondition(Conditions.ORE_MODERATE)) return true;
-		return false;
-	}
-
-	@Override
-	public boolean showWhenUnavailable(){
-		return false;
-	}
+    protected List<String> getRequiredConditions(){
+        return Arrays.asList(Conditions.ORE_MODERATE);
+    }
 }
