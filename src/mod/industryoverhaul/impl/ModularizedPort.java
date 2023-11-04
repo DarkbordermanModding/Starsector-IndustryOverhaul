@@ -1,4 +1,4 @@
-package mod.illegalindustries.impl;
+package mod.industryoverhaul.impl;
 
 import java.awt.Color;
 import java.util.Map;

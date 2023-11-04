@@ -1,4 +1,4 @@
-package mod.illegalindustries.impl;
+package mod.industryoverhaul.impl;
 
 
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
@@ -7,17 +7,18 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.RaidDangerLe
 import com.fs.starfarer.api.util.Pair;
 
 
-public class OrganHarvest extends BaseIndustry {
+public class DrugProduction extends BaseIndustry {
 
 	public void apply() {
 		super.apply(true);
 
 		int size = market.getSize();
-		demand(Commodities.CREW, size);
-		supply(Commodities.ORGANS, size);
+		demand(Commodities.ORGANICS, size);
+		demand(Commodities.FOOD, size);
+		supply(Commodities.DRUGS, size + 1);
 
-		Pair<String, Integer> deficit = getMaxDeficit(Commodities.CREW);
-		applyDeficitToProduction(1, deficit,Commodities.ORGANS);
+		Pair<String, Integer> deficit = getMaxDeficit(Commodities.ORGANICS, Commodities.FOOD);
+		applyDeficitToProduction(1, deficit,Commodities.DRUGS);
 
 		if (!isFunctional()) {
 			supply.clear();
