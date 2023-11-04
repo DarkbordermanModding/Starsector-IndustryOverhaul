@@ -8,12 +8,8 @@ import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 public class ConditionModifierIndustry extends BaseIndustry {
 
-    public List<String> ADD_CONDITIONS = new ArrayList<String>();
-
     @Override
-    public void apply() {
-        super.apply(true);
-    }
+    public void apply() {super.apply(true);}
 
     // Can build if ALL of it exists
     protected List<String> getRequiredConditions(){
