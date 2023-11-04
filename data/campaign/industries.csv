@@ -8,11 +8,11 @@ organharvest,Organ Harvesting,150,90,,5,,,"structure, industry, industrial",,gra
 drugproduction,Drug Production,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryosanctum.png,mod.industryoverhaul.impl.DrugProduction,"Using organic resources to produce recreational drugs.",3000,EXTREME
 # Upgrade condition,,,,,,,,,,,,,,
 upgradebase,Condition Modifier,50,10,,0,,,"upgrade, parent_item, unraidable, structure",upgrade,,mod.industryoverhaul.MockIndustry,"Add several upgrade options",3000,
-upgradeoresparse,Upgrade to sparse ore,50,10,,0,,upgradeoremoderate,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.impl.UpgradeOre,"Create sparse ore deposit.",3000,EXTREME
-upgradeoremoderate,Upgrade to moderate ore,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.impl.UpgradeOre,"Upgrade sparse ore deposit to moderate ore deposit.",3000,EXTREME
-#upgradeoreabundant,Upgrade to abundant ore,150,10,,0,,,"structure",,graphics/icons/industry/mining_low.png,data.scripts.upgradeconditions.UpgradeOreAbundant,"Upgrade moderate ore deposit to abundant ore deposit.",3000,EXTREME
-#upgradeorerich,Upgrade to rich ore,200,10,,0,,,"structure",,graphics/icons/industry/mining_low.png,data.scripts.upgradeconditions.UpgradeOreRich,"Upgrade moderate ore deposit to rich ore deposit.",3000,EXTREME
-#upgradeoreultrarich,Upgrade to ultrarich ore,250,10,,0,,,"structure",,graphics/icons/industry/mining_low.png,data.scripts.upgradeconditions.UpgradeOreUltraRich,"Upgrade rich ore deposit to ultrarich ore deposit.",3000,EXTREME
+upgradeoresparse,Upgrade to sparse ore,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.ore.OreSparse,"Create sparse ore deposit.",3000,
+upgradeoremoderate,Upgrade to moderate ore,100,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.ore.OreModerate,"Upgrade sparse ore deposit to moderate ore deposit.",3000,
+upgradeoreabundant,Upgrade to abundant ore,150,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.ore.OreAbundant,"Upgrade moderate ore deposit to abundant ore deposit.",3000,
+upgradeorerich,Upgrade to rich ore,200,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.ore.OreRich,"Upgrade moderate ore deposit to rich ore deposit.",3000,
+upgradeoreultrarich,Upgrade to ultrarich ore,250,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.ore.OreUltraRich,"Upgrade rich ore deposit to ultrarich ore deposit.",3000,
 ,,,,,,,,,,,,,,
 #upgraderareoresparse,Upgrade to sparse rare ore,100,30,,0,,,"structure",,graphics/icons/industry/mining_low.png,data.scripts.upgradeconditions.UpgradeRareOreSparse,"Create sparse rare ore deposit.",3000,EXTREME
 #upgraderareoremoderate,Upgrade to moderate rare ore,150,30,,0,,,"structure",,graphics/icons/industry/mining_low.png,data.scripts.upgradeconditions.UpgradeRareOreModerate,"Upgrade sparse rare ore to moderate rare ore deposit.",3000,EXTREME
