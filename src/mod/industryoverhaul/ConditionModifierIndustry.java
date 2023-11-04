@@ -8,8 +8,6 @@ import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 public class ConditionModifierIndustry extends BaseIndustry {
 
-    public List<String> PREVENT_CONDITIONS = new ArrayList<String>();
-    public List<String> REMOVE_CONDITIONS = new ArrayList<String>();
     public List<String> ADD_CONDITIONS = new ArrayList<String>();
 
     @Override
@@ -21,9 +19,21 @@ public class ConditionModifierIndustry extends BaseIndustry {
         return new ArrayList<String>();
     }
 
+    protected List<String> getPreventConditions(){
+        return new ArrayList<String>();
+    }
+
+    protected List<String> getRemoveConditions(){
+        return new ArrayList<String>();
+    }
+
+    protected List<String> getAddedConditions(){
+        return new ArrayList<String>();
+    }
+
     @Override
 	public boolean isAvailableToBuild() {
-        for(String condition: PREVENT_CONDITIONS){
+        for(String condition: getPreventConditions()){
             if(getMarket().hasCondition(condition)) return false;
         }
         for(String condition: getRequiredConditions()){
@@ -35,10 +45,10 @@ public class ConditionModifierIndustry extends BaseIndustry {
 	@Override
 	protected void buildingFinished(){
 		super.buildingFinished();
-        for(String condition: REMOVE_CONDITIONS){
+        for(String condition: getRemoveConditions()){
      		getMarket().removeCondition(condition);
         }
-        for(String condition: ADD_CONDITIONS){
+        for(String condition: getAddedConditions()){
             getMarket().addCondition(condition);
             getMarket().getCondition(condition).setSurveyed(true);
         }

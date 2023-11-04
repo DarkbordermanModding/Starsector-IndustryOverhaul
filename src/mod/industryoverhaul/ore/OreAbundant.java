@@ -1,6 +1,5 @@
 package mod.industryoverhaul.ore;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,5 +12,13 @@ public class OreAbundant extends ConditionModifierIndustry {
 
     protected List<String> getRequiredConditions(){
         return Arrays.asList(Conditions.ORE_MODERATE);
+    }
+
+    protected List<String> getRemoveConditions(){
+        return Arrays.asList(Conditions.ORE_MODERATE);
+    }
+
+    protected List<String> getAddedConditions(){
+        return Arrays.asList(Conditions.ORE_ABUNDANT);
     }
 }
