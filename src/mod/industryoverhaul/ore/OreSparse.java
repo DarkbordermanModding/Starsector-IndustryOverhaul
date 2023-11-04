@@ -1,46 +1,26 @@
 package mod.industryoverhaul.ore;
 
-import com.fs.starfarer.api.campaign.econ.Industry;
-import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
+import java.util.Arrays;
+import java.util.List;
+
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
+import mod.industryoverhaul.ConditionModifierIndustry;
 
-public class OreSparse extends BaseIndustry {
 
-	@Override
-	public void apply() {
-		super.apply(true);
-	}
+public class OreSparse extends ConditionModifierIndustry {
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
-		getMarket().addCondition(Conditions.ORE_SPARSE);
-		getMarket().getCondition(Conditions.ORE_SPARSE).setSurveyed(true);
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry("upgradeoresparse", null, false);
-	}
+    protected List<String> getPreventConditions(){
+        return Arrays.asList(
+			Conditions.ORE_SPARSE,
+			Conditions.ORE_MODERATE,
+			Conditions.ORE_ABUNDANT,
+			Conditions.ORE_RICH,
+			Conditions.ORE_ULTRARICH
+		);
+    }
 
-	@Override
-	public boolean isAvailableToBuild() {
-		if(
-			getMarket().hasCondition(Conditions.ORE_SPARSE) ||
-			getMarket().hasCondition(Conditions.ORE_ABUNDANT) ||
-			getMarket().hasCondition(Conditions.ORE_MODERATE) ||
-			getMarket().hasCondition(Conditions.ORE_RICH) ||
-			getMarket().hasCondition(Conditions.ORE_ULTRARICH)
-		){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean showWhenUnavailable(){
-		return false;
-	}
+    protected List<String> getAddedConditions(){
+        return Arrays.asList(Conditions.ORE_SPARSE);
+    }
 }

@@ -1,39 +1,24 @@
 package mod.industryoverhaul.ore;
 
-import com.fs.starfarer.api.campaign.econ.Industry;
-import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
+import java.util.Arrays;
+import java.util.List;
+
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
+import mod.industryoverhaul.ConditionModifierIndustry;
 
-public class OreUltraRich extends BaseIndustry {
 
-	@Override
-	public void apply() {
-		super.apply(true);
-	}
+public class OreUltraRich extends ConditionModifierIndustry {
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
- 		getMarket().removeCondition(Conditions.ORE_RICH);
-		getMarket().addCondition(Conditions.ORE_ULTRARICH);
-		getMarket().getCondition(Conditions.ORE_ULTRARICH).setSurveyed(true);
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry("upgradeoreultrarich", null, false);
-	}
+    protected List<String> getRequiredConditions(){
+        return Arrays.asList(Conditions.ORE_RICH);
+    }
 
-	@Override
-	public boolean isAvailableToBuild() {
-		if(getMarket().hasCondition(Conditions.ORE_RICH)) return true;
-		return false;
-	}
+    protected List<String> getRemoveConditions(){
+        return Arrays.asList(Conditions.ORE_RICH);
+    }
 
-	@Override
-	public boolean showWhenUnavailable(){
-		return false;
-	}
+    protected List<String> getAddedConditions(){
+        return Arrays.asList(Conditions.ORE_ULTRARICH);
+    }
 }
