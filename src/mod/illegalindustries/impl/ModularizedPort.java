@@ -32,6 +32,9 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 	public static float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
 	public static float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
 
+	public static int EXTRA_DEMAND = 0;
+	public static int EXTRA_SUPPLY = 0;
+
 	public void apply() {
 		super.apply(true);
 
@@ -51,14 +54,14 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
 		}
 
-		demand(Commodities.FUEL, size -1);
-		demand(Commodities.SUPPLIES, size -1);
-		demand(Commodities.SHIPS, size -1);
+		demand(Commodities.FUEL, size -1 + EXTRA_DEMAND);
+		demand(Commodities.SUPPLIES, size -1 + EXTRA_DEMAND);
+		demand(Commodities.SHIPS, size -1 + EXTRA_DEMAND);
 
-		supply(Commodities.CREW, size + 1);
-		supply(Commodities.MARINES, size - 2);
-		supply(Commodities.DRUGS, size - 2);
-		supply(Commodities.ORGANS, size - 3);
+		supply(Commodities.CREW, size + 1 + EXTRA_SUPPLY);
+		supply(Commodities.MARINES, size - 2 + EXTRA_SUPPLY);
+		supply(Commodities.DRUGS, size - 2 + EXTRA_SUPPLY);
+		supply(Commodities.ORGANS, size - 3 + EXTRA_SUPPLY);
 
 		String desc = getNameForModifier();
 
