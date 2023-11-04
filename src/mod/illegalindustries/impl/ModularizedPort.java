@@ -28,6 +28,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 	public static float GROUND_DEFENSES_FLAT = 20f;
 	public static float HAZARD_FLAT = -0.25f;
 	public static float STATIC_ACCESSIBILITY = 0.70f;
+	public static float STABILITY_FLAT = 1f;
 
 	public static float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
 	public static float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
@@ -46,12 +47,14 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 			GROUND_DEFENSES_FLAT = 50f;
 			IMRPOVE_FLEET_SIZE_MULT = 0.20f;
 			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
+			STABILITY_FLAT = 2f;
 		}else{
 			HAZARD_FLAT = -0.25f;
 			STATIC_ACCESSIBILITY = 0.70f;
 			GROUND_DEFENSES_FLAT = 20f;
 			IMRPOVE_FLEET_SIZE_MULT = 0.10f;
 			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
+			STABILITY_FLAT = 1f;
 		}
 
 		demand(Commodities.FUEL, size + EXTRA_DEMAND);
@@ -82,6 +85,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 				total += entry.getValue().value;
 			}
 		}
+		market.getStability().modifyFlat(getModId(0), STABILITY_FLAT, desc);
 		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
 		market.getHazard().modifyFlat(getModId(0), HAZARD_FLAT, desc);
 		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(), GROUND_DEFENSES_FLAT, desc);
@@ -110,6 +114,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 		market.getAccessibilityMod().unmodifyFlat(getModId(1));
 		market.getAccessibilityMod().unmodifyFlat(getModId(2));
 
+		market.getStability().unmodifyFlat(getModId(0));
 		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyFlat(getModId());
 		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).unmodifyFlat(getModId(0));
 		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).unmodifyMult(getModId(0));
@@ -138,8 +143,9 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 			float bonus = getPopulationGrowthBonus();
 			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
 			tooltip.addPara("Accessibility is lock to: %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
-			tooltip.addPara("Ground defense: %s", opad, h, "+" + (int)GROUND_DEFENSES_FLAT);
 			tooltip.addPara("Hazard rating: %s", opad, h, (int)(HAZARD_FLAT * 100f) + "%");
+			tooltip.addPara("Ground defense strength: %s", opad, h, "+" + (int)GROUND_DEFENSES_FLAT);
+			tooltip.addPara("Stability bonus: %s", opad, h, "+" + (int)STABILITY_FLAT);
 		}
 	}
 
