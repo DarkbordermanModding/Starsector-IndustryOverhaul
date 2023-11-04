@@ -10,7 +10,7 @@ import mod.industryoverhaul.ConditionModifierIndustry;
 
 public class OreSparse extends ConditionModifierIndustry {
 
-    protected List<String> getPreventConditions(){
+    protected List<String> getPreventAnyConditions(){
         return Arrays.asList(
 			Conditions.ORE_SPARSE,
 			Conditions.ORE_MODERATE,

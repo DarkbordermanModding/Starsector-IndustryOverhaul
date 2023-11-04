@@ -26,7 +26,7 @@ public class ConditionModifierIndustry extends BaseIndustry {
     }
 
     // Can't build if ANY of it exists
-    protected List<String> getPreventConditions(){
+    protected List<String> getPreventAnyConditions(){
         return new ArrayList<String>();
     }
 
@@ -40,7 +40,7 @@ public class ConditionModifierIndustry extends BaseIndustry {
 
     @Override
 	public boolean isAvailableToBuild() {
-        for(String condition: getPreventConditions()){
+        for(String condition: getPreventAnyConditions()){
             if(getMarket().hasCondition(condition)) return false;
         }
         for(String condition: getRequiredConditions()){
