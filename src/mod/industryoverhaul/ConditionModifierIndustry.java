@@ -40,6 +40,7 @@ public class ConditionModifierIndustry extends BaseIndustry {
 
     @Override
 	public boolean isAvailableToBuild() {
+        // prevent any, prevent all, required all, then require any
         for(String condition: getPreventAnyConditions()){
             if(getMarket().hasCondition(condition)) return false;
         }
