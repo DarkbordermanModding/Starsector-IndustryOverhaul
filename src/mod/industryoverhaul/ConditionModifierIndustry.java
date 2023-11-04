@@ -48,11 +48,13 @@ public class ConditionModifierIndustry extends BaseIndustry {
         }
 
         // Do not require any condition
-        if(getRequiredAnyConditions().isEmpty()) return true;
+        boolean requiredMet = false;
+        if(getRequiredAnyConditions().isEmpty()) requiredMet = true;
         for(String condition: getRequiredAnyConditions()){
-            if(getMarket().hasCondition(condition)) return true;
+            if(getMarket().hasCondition(condition)) requiredMet = true;
         }
-        return false;
+
+        return requiredMet;
 	}
 
 	@Override
