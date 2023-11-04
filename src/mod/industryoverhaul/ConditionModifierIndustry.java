@@ -11,6 +11,9 @@ public class ConditionModifierIndustry extends BaseIndustry {
     @Override
     public void apply() {super.apply(true);}
 
+    @Override
+	public boolean showWhenUnavailable(){return false;}
+
     // Can build if ALL of it exists
     protected List<String> getRequiredConditions(){
         return new ArrayList<String>();
@@ -68,10 +71,5 @@ public class ConditionModifierIndustry extends BaseIndustry {
 			industry.doPostSaveRestore();
 		}
 		getMarket().removeIndustry(getId(), null, false);
-	}
-
-    @Override
-	public boolean showWhenUnavailable(){
-		return false;
 	}
 }
