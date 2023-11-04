@@ -21,7 +21,7 @@ import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 public class ModularizedPort extends BaseIndustry implements MarketImmigrationModifier {
 
-	public static float OFFICER_PROB_MOD_MEGA = 0.2f;
+	public static float OFFICER_PROB_MOD = 0.1f;
 
 	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
 
@@ -89,8 +89,7 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 			);
 		}
 
-		float officerProb = OFFICER_PROB_MOD_MEGA;
-		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), officerProb);
+		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), OFFICER_PROB_MOD);
 
 		if (!isFunctional()) {
 			supply.clear();
