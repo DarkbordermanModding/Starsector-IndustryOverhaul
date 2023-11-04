@@ -54,9 +54,9 @@ public class ModularizedPort extends BaseIndustry implements MarketImmigrationMo
 			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
 		}
 
-		demand(Commodities.FUEL, size -1 + EXTRA_DEMAND);
-		demand(Commodities.SUPPLIES, size -1 + EXTRA_DEMAND);
-		demand(Commodities.SHIPS, size -1 + EXTRA_DEMAND);
+		demand(Commodities.FUEL, size + EXTRA_DEMAND);
+		demand(Commodities.SUPPLIES, size + EXTRA_DEMAND);
+		demand(Commodities.SHIPS, size + EXTRA_DEMAND);
 
 		supply(Commodities.CREW, size + 1 + EXTRA_SUPPLY);
 		supply(Commodities.MARINES, size - 2 + EXTRA_SUPPLY);
