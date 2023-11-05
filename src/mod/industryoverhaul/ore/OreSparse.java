@@ -12,12 +12,12 @@ public class OreSparse extends ConditionModifierIndustry {
 
     protected List<String> getPreventAnyConditions(){
         return Arrays.asList(
-			Conditions.ORE_SPARSE,
-			Conditions.ORE_MODERATE,
-			Conditions.ORE_ABUNDANT,
-			Conditions.ORE_RICH,
-			Conditions.ORE_ULTRARICH
-		);
+            Conditions.ORE_SPARSE,
+            Conditions.ORE_MODERATE,
+            Conditions.ORE_ABUNDANT,
+            Conditions.ORE_RICH,
+            Conditions.ORE_ULTRARICH
+        );
     }
 
     protected List<String> getAddedConditions(){

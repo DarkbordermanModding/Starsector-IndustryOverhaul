@@ -21,213 +21,213 @@ import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 public class ModularizedPort extends BaseIndustry implements MarketImmigrationModifier {
 
-	public static float OFFICER_PROB_MOD = 0.1f;
+    public static float OFFICER_PROB_MOD = 0.1f;
 
-	public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
+    public static float UPKEEP_MULT_PER_DEFICIT = 0.1f;
 
-	public static float GROUND_DEFENSES_FLAT = 20f;
-	public static float HAZARD_FLAT = -0.25f;
-	public static float STATIC_ACCESSIBILITY = 0.70f;
-	public static float STABILITY_FLAT = 1f;
+    public static float GROUND_DEFENSES_FLAT = 20f;
+    public static float HAZARD_FLAT = -0.25f;
+    public static float STATIC_ACCESSIBILITY = 0.70f;
+    public static float STABILITY_FLAT = 1f;
 
-	public static float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
-	public static float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
+    public static float IMRPOVE_FLEET_SIZE_MULT = 0.10f;
+    public static float ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
 
-	public static int EXTRA_DEMAND = 0;
-	public static int EXTRA_SUPPLY = 0;
+    public static int EXTRA_DEMAND = 0;
+    public static int EXTRA_SUPPLY = 0;
 
-	public void apply() {
-		super.apply(true);
+    public void apply() {
+        super.apply(true);
 
-		int size = market.getSize();
-		boolean isComplex = getId().equals("automatedportcomplex");
-		if(isComplex){
-			HAZARD_FLAT = -0.50f;
-			STATIC_ACCESSIBILITY = 1.00f;
-			GROUND_DEFENSES_FLAT = 50f;
-			IMRPOVE_FLEET_SIZE_MULT = 0.20f;
-			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
-			STABILITY_FLAT = 2f;
-		}else{
-			HAZARD_FLAT = -0.25f;
-			STATIC_ACCESSIBILITY = 0.70f;
-			GROUND_DEFENSES_FLAT = 20f;
-			IMRPOVE_FLEET_SIZE_MULT = 0.10f;
-			ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
-			STABILITY_FLAT = 1f;
-		}
+        int size = market.getSize();
+        boolean isComplex = getId().equals("automatedportcomplex");
+        if(isComplex){
+            HAZARD_FLAT = -0.50f;
+            STATIC_ACCESSIBILITY = 1.00f;
+            GROUND_DEFENSES_FLAT = 50f;
+            IMRPOVE_FLEET_SIZE_MULT = 0.20f;
+            ALPHA_CORE_GROUND_DEFENSES_MULT = 0.5f;
+            STABILITY_FLAT = 2f;
+        }else{
+            HAZARD_FLAT = -0.25f;
+            STATIC_ACCESSIBILITY = 0.70f;
+            GROUND_DEFENSES_FLAT = 20f;
+            IMRPOVE_FLEET_SIZE_MULT = 0.10f;
+            ALPHA_CORE_GROUND_DEFENSES_MULT = 0.25f;
+            STABILITY_FLAT = 1f;
+        }
 
-		demand(Commodities.FUEL, size + EXTRA_DEMAND);
-		demand(Commodities.SUPPLIES, size + EXTRA_DEMAND);
-		demand(Commodities.SHIPS, size + EXTRA_DEMAND);
+        demand(Commodities.FUEL, size + EXTRA_DEMAND);
+        demand(Commodities.SUPPLIES, size + EXTRA_DEMAND);
+        demand(Commodities.SHIPS, size + EXTRA_DEMAND);
 
-		supply(Commodities.CREW, size + 1 + EXTRA_SUPPLY);
-		supply(Commodities.MARINES, size - 2 + EXTRA_SUPPLY);
-		supply(Commodities.DRUGS, size - 2 + EXTRA_SUPPLY);
-		supply(Commodities.ORGANS, size - 3 + EXTRA_SUPPLY);
+        supply(Commodities.CREW, size + 1 + EXTRA_SUPPLY);
+        supply(Commodities.MARINES, size - 2 + EXTRA_SUPPLY);
+        supply(Commodities.DRUGS, size - 2 + EXTRA_SUPPLY);
+        supply(Commodities.ORGANS, size - 3 + EXTRA_SUPPLY);
 
-		String desc = getNameForModifier();
+        String desc = getNameForModifier();
 
-		Pair<String, Integer> deficit = getUpkeepAffectingDeficit();
+        Pair<String, Integer> deficit = getUpkeepAffectingDeficit();
 
-		if (deficit.two > 0) {
-			float loss = getUpkeepPenalty(deficit);
-			getUpkeep().modifyMult("deficit", 1f + loss, getDeficitText(deficit.one));
-		} else {
-			getUpkeep().unmodifyMult("deficit");
-		}
+        if (deficit.two > 0) {
+            float loss = getUpkeepPenalty(deficit);
+            getUpkeep().modifyMult("deficit", 1f + loss, getDeficitText(deficit.one));
+        } else {
+            getUpkeep().unmodifyMult("deficit");
+        }
 
-		market.setHasSpaceport(true);
+        market.setHasSpaceport(true);
 
-		float total = 0f;
-		for(Map.Entry<String, StatMod> entry: market.getAccessibilityMod().getFlatBonuses().entrySet()) {
-			if(!entry.getKey().equals(getId())){
-				total += entry.getValue().value;
-			}
-		}
-		market.getStability().modifyFlat(getModId(0), STABILITY_FLAT, desc);
-		market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
-		market.getHazard().modifyFlat(getModId(0), HAZARD_FLAT, desc);
-		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(), GROUND_DEFENSES_FLAT, desc);
+        float total = 0f;
+        for(Map.Entry<String, StatMod> entry: market.getAccessibilityMod().getFlatBonuses().entrySet()) {
+            if(!entry.getKey().equals(getId())){
+                total += entry.getValue().value;
+            }
+        }
+        market.getStability().modifyFlat(getModId(0), STABILITY_FLAT, desc);
+        market.getAccessibilityMod().modifyFlat(getModId(0), STATIC_ACCESSIBILITY - total, desc);
+        market.getHazard().modifyFlat(getModId(0), HAZARD_FLAT, desc);
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(), GROUND_DEFENSES_FLAT, desc);
 
-		if(isImproved()){
-			market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(
-				getModId(0), IMRPOVE_FLEET_SIZE_MULT, desc
-			);
-		}
+        if(isImproved()){
+            market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(
+                getModId(0), IMRPOVE_FLEET_SIZE_MULT, desc
+            );
+        }
 
-		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), OFFICER_PROB_MOD);
+        market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), OFFICER_PROB_MOD);
 
-		if (!isFunctional()) {
-			supply.clear();
-			unapply();
-			market.setHasSpaceport(true);
-		}
-	}
+        if (!isFunctional()) {
+            supply.clear();
+            unapply();
+            market.setHasSpaceport(true);
+        }
+    }
 
-	@Override
-	public void unapply() {
-		super.unapply();
+    @Override
+    public void unapply() {
+        super.unapply();
 
-		market.setHasSpaceport(false);
-		market.getAccessibilityMod().unmodifyFlat(getModId(0));
-		market.getAccessibilityMod().unmodifyFlat(getModId(1));
-		market.getAccessibilityMod().unmodifyFlat(getModId(2));
+        market.setHasSpaceport(false);
+        market.getAccessibilityMod().unmodifyFlat(getModId(0));
+        market.getAccessibilityMod().unmodifyFlat(getModId(1));
+        market.getAccessibilityMod().unmodifyFlat(getModId(2));
 
-		market.getStability().unmodifyFlat(getModId(0));
-		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyFlat(getModId());
-		market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).unmodifyFlat(getModId(0));
-		market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).unmodifyMult(getModId(0));
-		market.getHazard().unmodifyFlat(getModId(0));
-	}
+        market.getStability().unmodifyFlat(getModId(0));
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyFlat(getModId());
+        market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).unmodifyFlat(getModId(0));
+        market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).unmodifyMult(getModId(0));
+        market.getHazard().unmodifyFlat(getModId(0));
+    }
 
-	protected float getUpkeepPenalty(Pair<String, Integer> deficit) {
-		float loss = deficit.two * UPKEEP_MULT_PER_DEFICIT;
-		if (loss < 0) loss = 0;
-		return loss;
-	}
+    protected float getUpkeepPenalty(Pair<String, Integer> deficit) {
+        float loss = deficit.two * UPKEEP_MULT_PER_DEFICIT;
+        if (loss < 0) loss = 0;
+        return loss;
+    }
 
-	protected Pair<String, Integer> getUpkeepAffectingDeficit() {
-		return getMaxDeficit(Commodities.FUEL, Commodities.SUPPLIES, Commodities.SHIPS);
-	}
+    protected Pair<String, Integer> getUpkeepAffectingDeficit() {
+        return getMaxDeficit(Commodities.FUEL, Commodities.SUPPLIES, Commodities.SHIPS);
+    }
 
-	protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
-		return mode != IndustryTooltipMode.NORMAL || isFunctional();
-	}
+    protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
+        return mode != IndustryTooltipMode.NORMAL || isFunctional();
+    }
 
-	@Override
-	protected void addPostDemandSection(TooltipMakerAPI tooltip, boolean hasDemand, IndustryTooltipMode mode) {
-		if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
-			Color h = Misc.getHighlightColor();
-			float opad = 10f;
-			float bonus = getPopulationGrowthBonus();
-			tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
-			tooltip.addPara("Accessibility is lock to: %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
-			tooltip.addPara("Hazard rating: %s", opad, h, (int)(HAZARD_FLAT * 100f) + "%");
-			tooltip.addPara("Ground defense strength: %s", opad, h, "+" + (int)GROUND_DEFENSES_FLAT);
-			tooltip.addPara("Stability bonus: %s", opad, h, "+" + (int)STABILITY_FLAT);
-		}
-	}
+    @Override
+    protected void addPostDemandSection(TooltipMakerAPI tooltip, boolean hasDemand, IndustryTooltipMode mode) {
+        if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
+            Color h = Misc.getHighlightColor();
+            float opad = 10f;
+            float bonus = getPopulationGrowthBonus();
+            tooltip.addPara("Population growth: %s", opad, h, "+" + (int)bonus);
+            tooltip.addPara("Accessibility is lock to: %s", opad, h, (int)(STATIC_ACCESSIBILITY * 100) + "%");
+            tooltip.addPara("Hazard rating: %s", opad, h, (int)(HAZARD_FLAT * 100f) + "%");
+            tooltip.addPara("Ground defense strength: %s", opad, h, "+" + (int)GROUND_DEFENSES_FLAT);
+            tooltip.addPara("Stability bonus: %s", opad, h, "+" + (int)STABILITY_FLAT);
+        }
+    }
 
-	public float getPopulationGrowthBonus() {
-		boolean isComplex = getId().equals("automatedportcomplex");
-		if(isComplex) return market.getSize() + 2;
-		return market.getSize() + 1;
-	}
+    public float getPopulationGrowthBonus() {
+        boolean isComplex = getId().equals("automatedportcomplex");
+        if(isComplex) return market.getSize() + 2;
+        return market.getSize() + 1;
+    }
 
-	public void modifyIncoming(MarketAPI market, PopulationComposition incoming) {
-		float bonus = getPopulationGrowthBonus();
-		incoming.getWeight().modifyFlat(getModId(), bonus, getNameForModifier());
-	}
+    public void modifyIncoming(MarketAPI market, PopulationComposition incoming) {
+        float bonus = getPopulationGrowthBonus();
+        incoming.getWeight().modifyFlat(getModId(), bonus, getNameForModifier());
+    }
 
-	@Override
-	protected void applyAlphaCoreModifiers() {
-		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
-		.modifyMult(getModId(1), 1f + ALPHA_CORE_GROUND_DEFENSES_MULT, getNameForModifier());
-	}
+    @Override
+    protected void applyAlphaCoreModifiers() {
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
+        .modifyMult(getModId(1), 1f + ALPHA_CORE_GROUND_DEFENSES_MULT, getNameForModifier());
+    }
 
-	@Override
-	protected void applyNoAICoreModifiers() {
-		market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
-		.unmodifyMult(getModId(1));
-	}
+    @Override
+    protected void applyNoAICoreModifiers() {
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
+        .unmodifyMult(getModId(1));
+    }
 
-	@Override
-	protected void applyAlphaCoreSupplyAndDemandModifiers() {
-		demandReduction.modifyFlat(getModId(0), DEMAND_REDUCTION, "Alpha core");
-	}
+    @Override
+    protected void applyAlphaCoreSupplyAndDemandModifiers() {
+        demandReduction.modifyFlat(getModId(0), DEMAND_REDUCTION, "Alpha core");
+    }
 
-	protected void addAlphaCoreDescription(TooltipMakerAPI tooltip, AICoreDescriptionMode mode) {
-		float opad = 10f;
-		Color highlight = Misc.getHighlightColor();
+    protected void addAlphaCoreDescription(TooltipMakerAPI tooltip, AICoreDescriptionMode mode) {
+        float opad = 10f;
+        Color highlight = Misc.getHighlightColor();
 
-		String pre = "Alpha-level AI core currently assigned. ";
-		if (mode == AICoreDescriptionMode.MANAGE_CORE_DIALOG_LIST || mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
-			pre = "Alpha-level AI core. ";
-		}
+        String pre = "Alpha-level AI core currently assigned. ";
+        if (mode == AICoreDescriptionMode.MANAGE_CORE_DIALOG_LIST || mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
+            pre = "Alpha-level AI core. ";
+        }
 
-		if (mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
-			CommoditySpecAPI coreSpec = Global.getSettings().getCommoditySpec(aiCoreId);
-			TooltipMakerAPI text = tooltip.beginImageWithText(coreSpec.getIconName(), 48);
-			text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
-				"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
-				"" + DEMAND_REDUCTION,
-				"x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
-			);
-			tooltip.addImageWithText(opad);
-			return;
-		}
+        if (mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
+            CommoditySpecAPI coreSpec = Global.getSettings().getCommoditySpec(aiCoreId);
+            TooltipMakerAPI text = tooltip.beginImageWithText(coreSpec.getIconName(), 48);
+            text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
+                "" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
+                "" + DEMAND_REDUCTION,
+                "x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
+            );
+            tooltip.addImageWithText(opad);
+            return;
+        }
 
-		tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
-			"" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
-			"" + DEMAND_REDUCTION,
-			"x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
-		);
-	}
+        tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. Ground defense strength: %s", 0f, highlight,
+            "" + (int)((1f - UPKEEP_MULT) * 100f) + "%",
+            "" + DEMAND_REDUCTION,
+            "x" + (1 + ALPHA_CORE_GROUND_DEFENSES_MULT)
+        );
+    }
 
-	@Override
-	public boolean canImprove() {
-		return true;
-	}
+    @Override
+    public boolean canImprove() {
+        return true;
+    }
 
-	@Override
-	protected boolean canImproveToIncreaseProduction() {
-		return false;
-	}
+    @Override
+    protected boolean canImproveToIncreaseProduction() {
+        return false;
+    }
 
-	public void addImproveDesc(TooltipMakerAPI info, ImprovementDescriptionMode mode) {
-		float opad = 10f;
-		Color highlight = Misc.getHighlightColor();
+    public void addImproveDesc(TooltipMakerAPI info, ImprovementDescriptionMode mode) {
+        float opad = 10f;
+        Color highlight = Misc.getHighlightColor();
 
-		String str = "" + (int)Math.round(IMRPOVE_FLEET_SIZE_MULT * 100f);
+        String str = "" + (int)Math.round(IMRPOVE_FLEET_SIZE_MULT * 100f);
 
-		if (mode == ImprovementDescriptionMode.INDUSTRY_TOOLTIP) {
-			info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
-		} else {
-			info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
-		}
+        if (mode == ImprovementDescriptionMode.INDUSTRY_TOOLTIP) {
+            info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
+        } else {
+            info.addPara("Incrase %s%% combat fleet size.", 0f, highlight, str);
+        }
 
-		info.addSpacer(opad);
-		super.addImproveDesc(info, mode);
-	}
+        info.addSpacer(opad);
+        super.addImproveDesc(info, mode);
+    }
 }

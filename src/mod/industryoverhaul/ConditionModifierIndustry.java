@@ -12,7 +12,7 @@ public class ConditionModifierIndustry extends BaseIndustry {
     public void apply() {super.apply(true);}
 
     @Override
-	public boolean showWhenUnavailable(){return false;}
+    public boolean showWhenUnavailable(){return false;}
 
     // Can build if ALL of it exists
     protected List<String> getRequiredConditions(){
@@ -38,7 +38,7 @@ public class ConditionModifierIndustry extends BaseIndustry {
     }
 
     @Override
-	public boolean isAvailableToBuild() {
+    public boolean isAvailableToBuild() {
         // prevent any, prevent all, required all, then require any
         for(String condition: getPreventAnyConditions()){
             if(getMarket().hasCondition(condition)) return false;
@@ -55,23 +55,23 @@ public class ConditionModifierIndustry extends BaseIndustry {
         }
 
         return requiredMet;
-	}
+    }
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
+    @Override
+    protected void buildingFinished(){
+        super.buildingFinished();
         for(String condition: getRemoveConditions()){
-     		getMarket().removeCondition(condition);
+             getMarket().removeCondition(condition);
         }
         for(String condition: getAddedConditions()){
             getMarket().addCondition(condition);
             getMarket().getCondition(condition).setSurveyed(true);
         }
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry(getId(), null, false);
-	}
+        getMarket().reapplyConditions();
+        for(Industry industry: getMarket().getIndustries()){
+            industry.doPreSaveCleanup();
+            industry.doPostSaveRestore();
+        }
+        getMarket().removeIndustry(getId(), null, false);
+    }
 }

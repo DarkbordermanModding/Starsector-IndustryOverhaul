@@ -12,19 +12,19 @@ public class RemoveFarmland extends ConditionModifierIndustry {
 
     protected List<String> getRequiredAnyConditions(){
         return Arrays.asList(
-			Conditions.FARMLAND_POOR,
-			Conditions.FARMLAND_ADEQUATE,
-			Conditions.FARMLAND_RICH,
-			Conditions.FARMLAND_BOUNTIFUL
-		);
+            Conditions.FARMLAND_POOR,
+            Conditions.FARMLAND_ADEQUATE,
+            Conditions.FARMLAND_RICH,
+            Conditions.FARMLAND_BOUNTIFUL
+        );
     }
 
     protected List<String> getRemoveConditions(){
         return Arrays.asList(
-			Conditions.FARMLAND_POOR,
-			Conditions.FARMLAND_ADEQUATE,
-			Conditions.FARMLAND_RICH,
-			Conditions.FARMLAND_BOUNTIFUL
-		);
+            Conditions.FARMLAND_POOR,
+            Conditions.FARMLAND_ADEQUATE,
+            Conditions.FARMLAND_RICH,
+            Conditions.FARMLAND_BOUNTIFUL
+        );
     }
 }
