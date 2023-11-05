@@ -1,11 +1,11 @@
-package data.scripts.upgradeconditions;
+package mod.industryoverhaul.ruins;
 
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
 
-public class UpgradeRuinExtensive extends BaseIndustry {
+public class UpgradeRuinsVast extends BaseIndustry {
 
 	@Override
 	public void apply() {
@@ -16,20 +16,20 @@ public class UpgradeRuinExtensive extends BaseIndustry {
 	protected void buildingFinished(){
 		super.buildingFinished();
 
-		getMarket().removeCondition(Conditions.RUINS_WIDESPREAD);
-		getMarket().addCondition(Conditions.RUINS_EXTENSIVE);
-		getMarket().getCondition(Conditions.RUINS_EXTENSIVE).setSurveyed(true);
+		getMarket().removeCondition(Conditions.RUINS_EXTENSIVE);
+		getMarket().addCondition(Conditions.RUINS_VAST);
+		getMarket().getCondition(Conditions.RUINS_VAST).setSurveyed(true);
 		getMarket().reapplyConditions();
 		for(Industry industry: getMarket().getIndustries()){
 			industry.doPreSaveCleanup();
 			industry.doPostSaveRestore();
 		}
-		getMarket().removeIndustry("upgraderuinextensive", null, false);
+		getMarket().removeIndustry("upgraderuinvast", null, false);
 	}
 
 	@Override
 	public boolean isAvailableToBuild() {
-		if(getMarket().hasCondition(Conditions.RUINS_WIDESPREAD)) return true;
+		if(getMarket().hasCondition(Conditions.RUINS_EXTENSIVE)) return true;
 		return false;
 	}
 

@@ -1,4 +1,4 @@
-package data.scripts.upgradeconditions;
+package mod.industryoverhaul.ruins;
 
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
@@ -6,7 +6,7 @@ import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
 
-public class UpgradeRuinScattered extends BaseIndustry {
+public class UpgradeRuinsScattered extends BaseIndustry {
 
 	@Override
 	public void apply() {
