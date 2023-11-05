@@ -1,9 +1,9 @@
 {
-	"id":"darkborderman.industryoverhaul",
-	"name":"Industry Overhaul",
-	"author":"Darkborderman",
-	"version":"0.0.0",
-	"description":"Add several industries to enchance gameplay experience.",
-	"gameVersion":"0.96a-RC10",
-	"jars": ["jars/industryoverhaul.jar"]
+    "id":"darkborderman.industryoverhaul",
+    "name":"Industry Overhaul",
+    "author":"Darkborderman",
+    "version":"0.0.0",
+    "description":"Add several industries to enchance gameplay experience.",
+    "gameVersion":"0.96a-RC10",
+    "jars": ["jars/industryoverhaul.jar"]
 }
