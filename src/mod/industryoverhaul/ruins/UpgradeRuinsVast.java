@@ -1,40 +1,24 @@
 package mod.industryoverhaul.ruins;
 
-import com.fs.starfarer.api.campaign.econ.Industry;
-import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
+import java.util.Arrays;
+import java.util.List;
+
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
+import mod.industryoverhaul.ConditionModifierIndustry;
 
-public class UpgradeRuinsVast extends BaseIndustry {
 
-	@Override
-	public void apply() {
-		super.apply(true);
-	}
+public class UpgradeRuinsVast extends ConditionModifierIndustry {
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
+    protected List<String> getRequiredConditions(){
+        return Arrays.asList(Conditions.RUINS_EXTENSIVE);
+    }
 
-		getMarket().removeCondition(Conditions.RUINS_EXTENSIVE);
-		getMarket().addCondition(Conditions.RUINS_VAST);
-		getMarket().getCondition(Conditions.RUINS_VAST).setSurveyed(true);
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry("upgraderuinvast", null, false);
-	}
+    protected List<String> getRemoveConditions(){
+        return Arrays.asList(Conditions.RUINS_EXTENSIVE);
+    }
 
-	@Override
-	public boolean isAvailableToBuild() {
-		if(getMarket().hasCondition(Conditions.RUINS_EXTENSIVE)) return true;
-		return false;
-	}
-
-	@Override
-	public boolean showWhenUnavailable(){
-		return false;
-	}
+    protected List<String> getAddedConditions(){
+        return Arrays.asList(Conditions.RUINS_VAST);
+    }
 }

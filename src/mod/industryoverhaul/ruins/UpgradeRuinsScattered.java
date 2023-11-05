@@ -1,50 +1,25 @@
 package mod.industryoverhaul.ruins;
 
-import com.fs.starfarer.api.campaign.econ.Industry;
-import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
+import java.util.Arrays;
+import java.util.List;
+
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
+import mod.industryoverhaul.ConditionModifierIndustry;
 
-public class UpgradeRuinsScattered extends BaseIndustry {
 
-	@Override
-	public void apply() {
-		super.apply(true);
-	}
+public class UpgradeRuinsScattered extends ConditionModifierIndustry {
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
+    protected List<String> getPreventAnyConditions(){
+        return Arrays.asList(
+            Conditions.RUINS_SCATTERED,
+            Conditions.RUINS_WIDESPREAD,
+            Conditions.RUINS_EXTENSIVE,
+            Conditions.RUINS_VAST
+        );
+    }
 
-        MemoryAPI mem = market.getMemoryWithoutUpdate();
-		if (mem.contains("$hasUnexploredRuins")) {
-            mem.set("$hasUnexploredRuins", false);
-		}
-
-		getMarket().addCondition(Conditions.RUINS_SCATTERED);
-		getMarket().getCondition(Conditions.RUINS_SCATTERED).setSurveyed(true);
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry("upgraderuinscattered", null, false);
-	}
-
-	@Override
-	public boolean isAvailableToBuild() {
-		if(
-            !getMarket().hasCondition(Conditions.RUINS_SCATTERED) &&
-            !getMarket().hasCondition(Conditions.RUINS_WIDESPREAD) &&
-            !getMarket().hasCondition(Conditions.RUINS_EXTENSIVE) &&
-            !getMarket().hasCondition(Conditions.RUINS_VAST)
-        ) return true;
-		return false;
-	}
-
-	@Override
-	public boolean showWhenUnavailable(){
-		return false;
-	}
+    protected List<String> getAddedConditions(){
+        return Arrays.asList(Conditions.RUINS_SCATTERED);
+    }
 }
