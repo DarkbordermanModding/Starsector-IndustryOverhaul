@@ -21,20 +21,20 @@ public class RefreshRuinsCondition extends ConditionModifierIndustry {
         );
     }
 
-	@Override
-	protected void buildingFinished(){
-		super.buildingFinished();
+    @Override
+    protected void buildingFinished(){
+        super.buildingFinished();
 
         MemoryAPI mem = market.getMemoryWithoutUpdate();
-		if (mem.contains("$core_techMiningMult")) {
+        if (mem.contains("$core_techMiningMult")) {
             mem.set("$core_techMiningMult", 1f);
-		}
+        }
 
-		getMarket().reapplyConditions();
-		for(Industry industry: getMarket().getIndustries()){
-			industry.doPreSaveCleanup();
-			industry.doPostSaveRestore();
-		}
-		getMarket().removeIndustry(getId(), null, false);
-	}
+        getMarket().reapplyConditions();
+        for(Industry industry: getMarket().getIndustries()){
+            industry.doPreSaveCleanup();
+            industry.doPostSaveRestore();
+        }
+        getMarket().removeIndustry(getId(), null, false);
+    }
 }
