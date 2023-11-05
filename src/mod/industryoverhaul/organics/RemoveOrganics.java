@@ -5,7 +5,10 @@ import java.util.List;
 
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
-public class RemoveOrganics {
+import mod.industryoverhaul.ConditionModifierIndustry;
+
+
+public class RemoveOrganics extends ConditionModifierIndustry{
 
     protected List<String> getRequiredAnyConditions(){
         return Arrays.asList(
