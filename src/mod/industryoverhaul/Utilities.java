@@ -8,25 +8,25 @@ import com.fs.starfarer.loading.specs.PlanetSpec;
 public class Utilities {
 
     public void changePlanetSpec(MarketAPI market, String planetType){
-        PlanetSpecAPI myspec = market.getPlanetEntity().getSpec();
+        PlanetSpecAPI planetSpec = market.getPlanetEntity().getSpec();
         for(PlanetSpecAPI spec: Global.getSettings().getAllPlanetSpecs()) {
             if (spec.getPlanetType().equals(planetType)) {
-                myspec.setAtmosphereColor(spec.getAtmosphereColor());
-                myspec.setAtmosphereThickness(spec.getAtmosphereThickness());
-                myspec.setAtmosphereThicknessMin(spec.getAtmosphereThicknessMin());
-                myspec.setCloudColor(spec.getCloudColor());
-                myspec.setCloudRotation(spec.getCloudRotation());
-                myspec.setCloudTexture(spec.getCloudTexture());
-                myspec.setGlowColor(spec.getGlowColor());
-                myspec.setGlowTexture(spec.getGlowTexture());
-                myspec.setIconColor(spec.getIconColor());
-                myspec.setPlanetColor(spec.getPlanetColor());
-                myspec.setStarscapeIcon(spec.getStarscapeIcon());
-                myspec.setTexture(spec.getTexture());
-                myspec.setUseReverseLightForGlow(spec.isUseReverseLightForGlow());
-                ((PlanetSpec)myspec).planetType = planetType;
-                ((PlanetSpec)myspec).name = spec.getName();
-                ((PlanetSpec)myspec).descriptionId = ((PlanetSpec)spec).descriptionId;
+                planetSpec.setAtmosphereColor(spec.getAtmosphereColor());
+                planetSpec.setAtmosphereThickness(spec.getAtmosphereThickness());
+                planetSpec.setAtmosphereThicknessMin(spec.getAtmosphereThicknessMin());
+                planetSpec.setCloudColor(spec.getCloudColor());
+                planetSpec.setCloudRotation(spec.getCloudRotation());
+                planetSpec.setCloudTexture(spec.getCloudTexture());
+                planetSpec.setGlowColor(spec.getGlowColor());
+                planetSpec.setGlowTexture(spec.getGlowTexture());
+                planetSpec.setIconColor(spec.getIconColor());
+                planetSpec.setPlanetColor(spec.getPlanetColor());
+                planetSpec.setStarscapeIcon(spec.getStarscapeIcon());
+                planetSpec.setTexture(spec.getTexture());
+                planetSpec.setUseReverseLightForGlow(spec.isUseReverseLightForGlow());
+                ((PlanetSpec)planetSpec).planetType = planetType;
+                ((PlanetSpec)planetSpec).name = spec.getName();
+                ((PlanetSpec)planetSpec).descriptionId = ((PlanetSpec)spec).descriptionId;
                 break;
             }
         }
