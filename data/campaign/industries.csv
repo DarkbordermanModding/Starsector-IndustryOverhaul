@@ -31,7 +31,7 @@ upgradeorganicstrace,Upgrade to trace organics,50,10,,0,,,"upgrade, sub_item, un
 upgradeorganicscommon,Upgrade to common organics,100,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.organics.UpgradeOrganicsCommon,"Upgrade trace organics to common organics deposit.",3030,
 upgradeorganicsabundant,Upgrade to abundant organics,150,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.organics.UpgradeOrganicsAbundant,"Upgrade common organics to abundant organics deposit.",3030,
 upgradeorganicsplentiful,Upgrade to plentiful organics,200,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.organics.UpgradeOrganicsPlentiful,"Upgrade abundant organics to plentiful organics deposit.",3030,
-#removeorganics,Remove organics,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.organics.RemoveOrganics,"Remove organics.",3030,
+removeorganics,Remove organics,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.organics.RemoveOrganics,"Remove organics.",3030,
 ,,,,,,,,,,,,,,
 upgradefarmlandpoor,Upgrade to poor farmland,50,30,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/farming_low.png,mod.industryoverhaul.farmland.FarmlandPoor,"Create poor farmland.",3040,EXTREME
 upgradefarmlandadequate,Upgrade to adequate farmland,100,30,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/farming_low.png,mod.industryoverhaul.farmland.FarmlandAdequate,"Upgrade poor farmland to adequate farmland.",3040,EXTREME
