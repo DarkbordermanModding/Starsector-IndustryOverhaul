@@ -7,7 +7,7 @@ import com.fs.starfarer.loading.specs.PlanetSpec;
 
 public class Utilities {
 
-    public void changePlanetSpec(MarketAPI market, String planetType){
+    public static void changePlanetSpec(MarketAPI market, String planetType){
         // Planet specs are defined in data/config/planets.json
         PlanetSpecAPI planetSpec = market.getPlanetEntity().getSpec();
         for(PlanetSpecAPI spec: Global.getSettings().getAllPlanetSpecs()) {
