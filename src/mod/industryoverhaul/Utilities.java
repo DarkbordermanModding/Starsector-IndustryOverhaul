@@ -26,7 +26,7 @@ public class Utilities {
                 planetSpec.setTexture(spec.getTexture());
                 planetSpec.setUseReverseLightForGlow(spec.isUseReverseLightForGlow());
                 ((PlanetSpec)planetSpec).planetType = planetType;
-                ((PlanetSpec)planetSpec).name = spec.getName() + " World";
+                ((PlanetSpec)planetSpec).name = spec.getName();
                 ((PlanetSpec)planetSpec).descriptionId = ((PlanetSpec)spec).descriptionId;
                 break;
             }
