@@ -6,8 +6,8 @@ automatedportcomplex,Automated Port Complex,240,90,,10,modularizedport,,"spacepo
 # Illegal industry,,,,,,,,,,,,,,
 organharvest,Organ Harvesting,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryorevival.png,mod.industryoverhaul.impl.OrganHarvest,"Harvesting crew's organ for black marketing.",3000,EXTREME
 drugproduction,Drug Production,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryosanctum.png,mod.industryoverhaul.impl.DrugProduction,"Using organic resources to produce recreational drugs.",3000,EXTREME
-# Upgrade condition,,,,,,,,,,,,,,
-upgradebase,Condition Modifier,50,10,,0,,,"upgrade, parent_item, unraidable, structure",upgrade,,mod.industryoverhaul.MockIndustry,"Add several upgrade options",3000,
+# Upgrade resource conditions,,,,,,,,,,,,,,
+upgradebase,Resource condition modifiers,50,10,,0,,,"upgrade, parent_item, unraidable, structure",upgrade,,mod.industryoverhaul.MockIndustry,"Add several upgrade options",3000,
 upgradeoresparse,Upgrade to sparse ore,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.resources.ore.OreSparse,"Create sparse ore deposit.",3000,
 upgradeoremoderate,Upgrade to moderate ore,100,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.resources.ore.OreModerate,"Upgrade sparse ore deposit to moderate ore deposit.",3000,
 upgradeoreabundant,Upgrade to abundant ore,150,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.resources.ore.OreAbundant,"Upgrade moderate ore deposit to abundant ore deposit.",3000,
@@ -40,12 +40,14 @@ upgradefarmlandrich,Upgrade to rich farmland,150,10,,0,,,"upgrade, sub_item, unr
 upgradefarmlandbountiful,Upgrade to bountiful farmland,200,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/farming_low.png,mod.industryoverhaul.resources.farmland.FarmlandBountiful,"Upgrade rich farmland to bountiful farmland.",3040,
 removefarmland,Remove farmland,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/farming_low.png,mod.industryoverhaul.resources.farmland.RemoveFarmland,"Remove farmland.",3040,
 ,,,,,,,,,,,,,,
-#upgradehabitable,Add habitable condition,200,30,,0,,,"structure",,graphics/illustrations/academy.jpg,data.scripts.upgradeconditions.UpgradeHabitable,"Create habitable condition.",3050,EXTREME
-#upgrademildclimate,Add mild climate condition,200,30,,0,,,"structure",,graphics/illustrations/academy.jpg,data.scripts.upgradeconditions.UpgradeMildClimate,"Create mild climate condition.",3050,EXTREME
-,,,,,,,,,,,,,,
 refreshruincondition,Refresh ruin condition,100,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/techmining.png,mod.industryoverhaul.resources.ruins.RefreshRuinsCondition,"Refresh ruin condition.",3060,
 upgraderuinscattered,Upgrade to scattered ruin,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/techmining.png,mod.industryoverhaul.resources.ruins.UpgradeRuinsScattered,"Upgrade to scattered ruin.",3060,
 upgraderuinwidespread,Upgrade to widespread ruin,100,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/techmining.png,mod.industryoverhaul.resources.ruins.UpgradeRuinsWidespread,"Upgrade to widespread ruin.",3060,
 upgraderuinextensive,Upgrade to extensive ruin,150,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/techmining.png,mod.industryoverhaul.resources.ruins.UpgradeRuinsExtensive,"Upgrade to extensive ruin.",3060,
 upgraderuinvast,Upgrade to vast ruin,200,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/techmining.png,mod.industryoverhaul.resources.ruins.UpgradeRuinsVast,"Upgrade to vast ruin.",3060,
 removeruin,Remove ruin,50,10,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/techmining.png,mod.industryoverhaul.resources.ruins.RemoveRuins,"Remove ruin.",3060,
+# Upgrade planet conditions,,,,,,,,,,,,,,
+upgradeplanetbase,Planet condition modifiers,50,10,,0,,,"planet, parent_item, unraidable, structure",planet,,mod.industryoverhaul.MockIndustry,"Add several upgrade options",3070,
+upgradelowgravity,Add Low gravity condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,graphics/icons/markets/gravity_low.png,mod.industryoverhaul.planet.gravity.LowGravity,"Create low gravity condition.",3070,
+#upgradehabitable,Add habitable condition,200,30,,0,,,"structure",,graphics/illustrations/academy.jpg,data.scripts.upgradeconditions.UpgradeHabitable,"Create habitable condition.",3050,
+#upgrademildclimate,Add mild climate condition,200,30,,0,,,"structure",,graphics/illustrations/academy.jpg,data.scripts.upgradeconditions.UpgradeMildClimate,"Create mild climate condition.",3050,
