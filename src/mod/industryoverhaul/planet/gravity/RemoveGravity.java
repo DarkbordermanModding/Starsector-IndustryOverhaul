@@ -29,6 +29,9 @@ public class RemoveGravity extends ConditionModifierIndustry{
             Utilities.changePlanetSpec(market, "irradiated");
         }else if(market.hasCondition(Conditions.TOXIC_ATMOSPHERE)){
             Utilities.changePlanetSpec(market, "toxic");
+        }else if(!market.hasCondition(Conditions.HABITABLE)){
+            // Really rough way to check it's gas giant
+            Utilities.changePlanetSpec(market, "barren");
         }
         super.buildingFinished();
     }
