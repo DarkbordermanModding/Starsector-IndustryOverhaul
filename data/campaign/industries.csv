@@ -56,7 +56,7 @@ upgradehabitable,Add habitable condition,50,10,,0,,,"planet, sub_item, unraidabl
 removehabitable,Remove habitable condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.habitable.RemoveHabitable,"Remove habitable condition.",3080,
 ,,,,,,,,,,,,,,
 upgradeinimicalbiosphere,Add inimical biosphere condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.biosphere.AddInimicalBiosphere,"Add inimical biosphere condition",3090,
-removeinimicalbiosphere,Remove inimical biosphere condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.biosphere.AddInimicalBiosphere,"Remove inimical biosphere condition",3090,
+removeinimicalbiosphere,Remove inimical biosphere condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.biosphere.RemoveInimicalBiosphere,"Remove inimical biosphere condition",3090,
 ,,,,,,,,,,,,,,
 upgrademildclimate,Add mild climate condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.weather.AddMildClimate,"Add mild climate condition",3100,
 removemildclimate,Remove mild climate condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.weather.RemoveMildClimate,"Remove mild climate condition",3100,
