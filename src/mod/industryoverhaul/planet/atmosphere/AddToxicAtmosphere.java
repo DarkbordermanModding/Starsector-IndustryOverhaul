@@ -15,7 +15,8 @@ public class AddToxicAtmosphere extends ConditionModifierIndustry {
             Conditions.NO_ATMOSPHERE,
             Conditions.THIN_ATMOSPHERE,
             Conditions.TOXIC_ATMOSPHERE,
-            Conditions.DENSE_ATMOSPHERE
+            Conditions.DENSE_ATMOSPHERE,
+            Conditions.HABITABLE
         );
     }
 
