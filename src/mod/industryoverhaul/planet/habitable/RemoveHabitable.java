@@ -11,9 +11,11 @@ import mod.industryoverhaul.Utilities;
 public class RemoveHabitable extends ConditionModifierIndustry{
 
     protected List<String> getPreventAnyConditions(){
-        // Mild climate is depends on habitable
-        // Must removed it first
-        return Arrays.asList(Conditions.MILD_CLIMATE);
+        // depends on habitable, must remove them first
+        return Arrays.asList(
+            Conditions.MILD_CLIMATE,
+            Conditions.WATER_SURFACE
+        );
     }
 
     protected List<String> getRequiredAnyConditions(){
