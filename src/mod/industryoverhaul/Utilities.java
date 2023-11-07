@@ -8,6 +8,8 @@ import com.fs.starfarer.loading.specs.PlanetSpec;
 public class Utilities {
 
     public static void changePlanetSpec(MarketAPI market, String planetType){
+        // Deal with non-planet entity
+        if(market.getPlanetEntity() == null) return;
         // Planet specs are defined in data/config/planets.json
         PlanetSpecAPI planetSpec = market.getPlanetEntity().getSpec();
         for(PlanetSpecAPI spec: Global.getSettings().getAllPlanetSpecs()) {
@@ -26,6 +28,9 @@ public class Utilities {
                 planetSpec.setTexture(spec.getTexture());
                 planetSpec.setUseReverseLightForGlow(spec.isUseReverseLightForGlow());
                 ((PlanetSpec)planetSpec).planetType = planetType;
+                // only modify gas giant to planet, not vice versa
+                // Without this line planet will missing "world" on its name
+                ((PlanetSpec)planetSpec).setGasGiant(false);
                 ((PlanetSpec)planetSpec).name = spec.getName();
                 ((PlanetSpec)planetSpec).descriptionId = ((PlanetSpec)spec).descriptionId;
                 break;

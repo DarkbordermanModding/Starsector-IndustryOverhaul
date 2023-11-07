@@ -3,6 +3,7 @@ package mod.industryoverhaul;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
@@ -39,6 +40,14 @@ public class ConditionModifierIndustry extends BaseIndustry {
 
     @Override
     public boolean isAvailableToBuild() {
+        // Check conditions exist or not
+        for(String condition: getAddedConditions()){
+            if(Global.getSettings().getMarketConditionSpec(condition) == null){ return false; }
+        }
+        for(String condition: getRemoveConditions()){
+            if(Global.getSettings().getMarketConditionSpec(condition) == null){ return false; }
+        }
+
         // prevent any, prevent all, required all, then require any
         for(String condition: getPreventAnyConditions()){
             if(getMarket().hasCondition(condition)) return false;

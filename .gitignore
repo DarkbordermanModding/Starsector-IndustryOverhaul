@@ -1,7 +1,6 @@
-.vscode/
 .gradle/
 build/
 
 # artifacts
 jars/
-bin/
+bins/

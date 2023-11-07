@@ -21,6 +21,6 @@ public class UpgradeOrganicsTrace extends ConditionModifierIndustry {
     }
 
     protected List<String> getAddedConditions(){
-        return Arrays.asList(Conditions.VOLATILES_TRACE);
+        return Arrays.asList(Conditions.ORGANICS_TRACE);
     }
 }

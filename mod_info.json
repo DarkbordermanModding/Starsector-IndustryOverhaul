@@ -1,9 +1,9 @@
 {
-    "id":"darkborderman.industryoverhaul",
-    "name":"Industry Overhaul",
+    "id":"darkborderman.colonyoverhaul",
+    "name":"Colony Overhaul",
     "author":"Darkborderman",
     "version":"0.0.0",
-    "description":"Add several industries to enchance gameplay experience.",
-    "gameVersion":"0.96a-RC10",
-    "jars": ["jars/industryoverhaul.jar"]
+    "description":"Get more control to your colony conditions and industries.",
+    "gameVersion":"0.97a-RC11",
+    "jars": ["jars/colonyoverhaul.jar"]
 }

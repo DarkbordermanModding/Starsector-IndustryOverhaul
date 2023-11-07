@@ -1,0 +1,2 @@
+id,name,faction,desc,script,icon,order
+reverse_engineering,Reverse Engineering,player,"Put ships, weapons, and fighters here and it's convert into blueprints",mod.industryoverhaul.campaign.submarkets.REMarketPlugin,,801

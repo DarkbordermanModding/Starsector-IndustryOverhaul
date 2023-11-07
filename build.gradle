@@ -1,16 +1,10 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
-repositories {
-    mavenCentral()
-}
-
 apply plugin: 'java'
 
 // project level config
 sourceSets.main.java.srcDir 'src'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-archivesBaseName = 'industryoverhaul'
+archivesBaseName = 'colonyoverhaul'
 
 build {
     doLast {
@@ -18,18 +12,6 @@ build {
             from jar
             into 'jars'
         }
-    }
-}
-
-task run(type: Exec) {
-    description 'Run Starsector'
-    dependsOn build
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        workingDir '../../starsector-core'
-        commandLine 'cmd', '/c', 'start', 'starsector.bat'
-    } else {
-        workingDir '../..'
-        commandLine 'sh', 'starsector.sh'
     }
 }
 
@@ -44,13 +26,13 @@ task release(type: Zip) {
     include 'jars/'
     include 'mod_info.json'
     archiveName archivesBaseName + '-' + cmdOutput + '.zip'
-    destinationDir(file('bin/'))
+    destinationDir(file('bins/'))
 }
 
 clean {
     description 'Cleanup files'
     delete fileTree('jars/') { include '*.jar' }
-    delete fileTree('bin/') { include '*.zip' }
+    delete fileTree('bins/') { include '*.zip' }
 }
 
 dependencies {
