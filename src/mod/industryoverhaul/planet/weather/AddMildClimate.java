@@ -9,6 +9,10 @@ import mod.industryoverhaul.ConditionModifierIndustry;
 
 public class AddMildClimate extends ConditionModifierIndustry {
 
+    protected List<String> getRequiredConditions(){
+        return Arrays.asList(Conditions.HABITABLE);
+    }
+
     protected List<String> getPreventAnyConditions(){
         return Arrays.asList(
             Conditions.MILD_CLIMATE,
