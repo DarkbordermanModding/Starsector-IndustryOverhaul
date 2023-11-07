@@ -9,17 +9,17 @@ import mod.industryoverhaul.ConditionModifierIndustry;
 
 public class AddInimicalBiosphere extends ConditionModifierIndustry {
 
-	protected List<String> getPreventAnyConditions(){
+      protected List<String> getPreventAnyConditions(){
         return Arrays.asList(
-			Conditions.NO_ATMOSPHERE,
-			Conditions.DENSE_ATMOSPHERE,
-			Conditions.THIN_ATMOSPHERE,
-			Conditions.TOXIC_ATMOSPHERE,
+                  Conditions.NO_ATMOSPHERE,
+                  Conditions.DENSE_ATMOSPHERE,
+                  Conditions.THIN_ATMOSPHERE,
+                  Conditions.TOXIC_ATMOSPHERE,
             Conditions.INIMICAL_BIOSPHERE
         );
     }
 
-	protected List<String> getAddedConditions(){
+      protected List<String> getAddedConditions(){
         return Arrays.asList(Conditions.INIMICAL_BIOSPHERE);
     }
 }
