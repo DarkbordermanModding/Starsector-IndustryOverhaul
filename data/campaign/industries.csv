@@ -65,5 +65,4 @@ removeextremeweather,Remove extreme weather condition,50,10,,0,,,"planet, sub_it
 ,,,,,,,,,,,,,,
 upgradedecivilized,Add decivilized condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.civil.AddDecivilized,"Add decivilized condition",3100,
 removedecivilized,Remove decivilized condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.civil.RemoveDecivilized,"Remove decivilized condition",3100,
-upgradedecivilizedsubpop,Add decivilized subpop condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.civil.AddDecivilizedSubpop,"Add decivilized subpop condition",3100,
-removedecivilizedsubpop,Remove decivilized subpop condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.civil.RemoveDecivilizedSubpop,"Remove decivilized subpop condition",3100,
+removedecivil,Remove any civil condition,50,10,,0,,,"planet, sub_item, unraidable, structure",,,mod.industryoverhaul.planet.civil.RemoveCivil,"Remove any civil condition",3100,

@@ -7,13 +7,19 @@ import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
 import mod.industryoverhaul.ConditionModifierIndustry;
 
-public class RemoveDecivilizedSubpop extends ConditionModifierIndustry{
+public class RemoveCivil extends ConditionModifierIndustry{
 
     protected List<String> getRequiredAnyConditions(){
-        return Arrays.asList(Conditions.DECIVILIZED_SUBPOP);
+        return Arrays.asList(
+            Conditions.DECIVILIZED,
+            Conditions.DECIVILIZED_SUBPOP
+        );
     }
 
     protected List<String> getRemoveConditions(){
-        return Arrays.asList(Conditions.DECIVILIZED_SUBPOP);
+        return Arrays.asList(
+            Conditions.DECIVILIZED,
+            Conditions.DECIVILIZED_SUBPOP
+        );
     }
 }
