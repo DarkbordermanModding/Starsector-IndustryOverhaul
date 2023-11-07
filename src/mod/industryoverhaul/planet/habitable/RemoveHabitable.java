@@ -11,15 +11,11 @@ import mod.industryoverhaul.Utilities;
 public class RemoveHabitable extends ConditionModifierIndustry{
 
     protected List<String> getRequiredAnyConditions(){
-        return Arrays.asList(
-            Conditions.HABITABLE
-        );
+        return Arrays.asList(Conditions.HABITABLE);
     }
 
     protected List<String> getRemoveConditions(){
-        return Arrays.asList(
-            Conditions.HABITABLE
-        );
+        return Arrays.asList(Conditions.HABITABLE);
     }
 
     protected void buildingFinished() {

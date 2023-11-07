@@ -10,20 +10,20 @@ import mod.industryoverhaul.Utilities;
 
 public class AddHabitable extends ConditionModifierIndustry {
 
-      protected List<String> getPreventAnyConditions(){
+    protected List<String> getPreventAnyConditions(){
         return Arrays.asList(
             Conditions.VERY_HOT,
             Conditions.VERY_COLD,
-                  Conditions.IRRADIATED,
-                  Conditions.NO_ATMOSPHERE,
-                  Conditions.DENSE_ATMOSPHERE,
-                  Conditions.THIN_ATMOSPHERE,
-                  Conditions.TOXIC_ATMOSPHERE,
+            Conditions.IRRADIATED,
+            Conditions.NO_ATMOSPHERE,
+            Conditions.DENSE_ATMOSPHERE,
+            Conditions.THIN_ATMOSPHERE,
+            Conditions.TOXIC_ATMOSPHERE,
             Conditions.HABITABLE
         );
     }
 
-      protected List<String> getAddedConditions(){
+    protected List<String> getAddedConditions(){
         return Arrays.asList(Conditions.HABITABLE);
     }
 
@@ -35,8 +35,8 @@ public class AddHabitable extends ConditionModifierIndustry {
         }else if(market.hasCondition(Conditions.INIMICAL_BIOSPHERE)){
             Utilities.changePlanetSpec(market, "jungle");
         }else {
-                  Utilities.changePlanetSpec(market, "terran");
-            }
+            Utilities.changePlanetSpec(market, "terran");
+        }
         super.buildingFinished();
     }
 }
