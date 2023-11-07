@@ -10,6 +10,10 @@ import mod.industryoverhaul.Utilities;
 
 public class RemoveWaterSurface extends ConditionModifierIndustry{
 
+    protected List<String> getPreventAnyConditions(){
+        return Arrays.asList(Conditions.VOLTURNIAN_LOBSTER_PENS);
+    }
+
     protected List<String> getRequiredAnyConditions(){
         return Arrays.asList(Conditions.WATER_SURFACE);
     }
