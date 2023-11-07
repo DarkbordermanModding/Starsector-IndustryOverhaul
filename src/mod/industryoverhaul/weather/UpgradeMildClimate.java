@@ -1,10 +1,9 @@
-package mod.industryoverhaul;
+package mod.industryoverhaul.weather;
 
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 
-// Not used until implements planet modifier intel
 public class UpgradeMildClimate extends BaseIndustry {
 
 	@Override
