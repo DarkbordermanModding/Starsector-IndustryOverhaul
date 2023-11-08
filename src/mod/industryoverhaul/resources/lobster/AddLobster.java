@@ -10,6 +10,10 @@ import mod.industryoverhaul.ConditionModifierIndustry;
 
 public class AddLobster extends ConditionModifierIndustry {
 
+    protected List<String> getPreventAnyConditions(){
+        return Arrays.asList(Conditions.VOLTURNIAN_LOBSTER_PENS);
+    }
+
     protected List<String> getRequiredConditions(){
         return Arrays.asList(Conditions.WATER_SURFACE);
     }
