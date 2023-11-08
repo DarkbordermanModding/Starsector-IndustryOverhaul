@@ -28,6 +28,9 @@ public class Utilities {
                 planetSpec.setTexture(spec.getTexture());
                 planetSpec.setUseReverseLightForGlow(spec.isUseReverseLightForGlow());
                 ((PlanetSpec)planetSpec).planetType = planetType;
+                // only modify gas giant to planet, not vice versa
+                // Without this line planet will missing "world" on its name
+                ((PlanetSpec)planetSpec).setGasGiant(false);
                 ((PlanetSpec)planetSpec).name = spec.getName();
                 ((PlanetSpec)planetSpec).descriptionId = ((PlanetSpec)spec).descriptionId;
                 break;

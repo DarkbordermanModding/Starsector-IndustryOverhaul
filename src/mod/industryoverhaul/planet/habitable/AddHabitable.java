@@ -19,9 +19,9 @@ public class AddHabitable extends ConditionModifierIndustry {
             Conditions.DENSE_ATMOSPHERE,
             Conditions.THIN_ATMOSPHERE,
             Conditions.TOXIC_ATMOSPHERE,
-            Conditions.POOR_LIGHT,
-            Conditions.DARK,
-            Conditions.METEOR_IMPACTS,
+            Conditions.POOR_LIGHT,  // Too far from star
+            Conditions.DARK,  // Too far from star
+            Conditions.METEOR_IMPACTS,  // No atmosphere
             Conditions.HABITABLE
         );
     }
