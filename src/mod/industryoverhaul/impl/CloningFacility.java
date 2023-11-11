@@ -1,17 +1,26 @@
 package mod.industryoverhaul.impl;
 
+import java.awt.Color;
+
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketImmigrationModifier;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.population.PopulationComposition;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
 
 public class CloningFacility extends BaseIndustry implements MarketImmigrationModifier{
 
-    public static int IMMIGRATION_MULPILIER = 2;
+    public static float IMMIGRATION_MULPILIER = 2;
 
     @Override
     public boolean canImprove() { return true; }
+
+    @Override
+    protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
+        return isFunctional();
+    }
 
     public void apply() {
         super.apply(true);
@@ -46,5 +55,15 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
             (float)bonus * IMMIGRATION_MULPILIER,
             getNameForModifier()
         );
+    }
+
+    @Override
+    protected void addPostDemandSection(TooltipMakerAPI tooltip, boolean hasDemand, IndustryTooltipMode mode) {
+        if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
+            Color h = Misc.getHighlightColor();
+            float opad = 10f;
+            double bonus = 2.66 * IMMIGRATION_MULPILIER;
+            tooltip.addPara("Population growth: %s", opad, h, "+" + (float)bonus + "%");
+        }
     }
 }
