@@ -8,15 +8,23 @@ import com.fs.starfarer.api.impl.campaign.population.PopulationComposition;
 
 public class CloningFacility extends BaseIndustry implements MarketImmigrationModifier{
 
+    public static int IMMIGRATION_MULPILIER = 2;
+
+    @Override
+    public boolean canImprove() { return true; }
+
     public void apply() {
         super.apply(true);
 
         int size = market.getSize();
 
-        demand(Commodities.FUEL, size);
+        demand(Commodities.FOOD, size);
+        demand(Commodities.ORGANICS, size);
+        demand(Commodities.CREW, size);
         demand(Commodities.SUPPLIES, size);
 
-        supply(Commodities.CREW, size + 1);
+        if (isImproved()) IMMIGRATION_MULPILIER = 3;
+        else IMMIGRATION_MULPILIER = 2;
 
         if (!isFunctional()) {
             supply.clear();
@@ -31,13 +39,12 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
 
     public void modifyIncoming(MarketAPI market, PopulationComposition incoming) {
         float immigrationModifier = 1 / 0.5f;
-         // Approximately 2.66% growth rate
         double bonus = Math.pow(immigrationModifier, market.getSize());
-        incoming.getWeight().modifyFlat(getModId(), (float)bonus, getNameForModifier());
-    }
-
-    @Override
-    protected boolean canImproveToIncreaseProduction() {
-        return true;
+        // Approximately (2.66 * multiplier)%  growth rate
+        incoming.getWeight().modifyFlat(
+            getModId(),
+            (float)bonus * IMMIGRATION_MULPILIER,
+            getNameForModifier()
+        );
     }
 }
