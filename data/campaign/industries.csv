@@ -6,7 +6,7 @@ automatedportcomplex,Automated Port Complex,240,90,,10,modularizedport,,"spacepo
 # Illegal industry,,,,,,,,,,,,,,
 organharvest,Organ Harvesting,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryosanctum.png,mod.industryoverhaul.impl.OrganHarvest,"Harvesting crew's organ for black marketing.",3000,EXTREME
 drugproduction,Drug Production,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryosanctum.png,mod.industryoverhaul.impl.DrugProduction,"Using organic resources to produce recreational drugs.",3000,EXTREME
-cloningfacility,Cloning Facility,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryorevival.png,mod.industryoverhaul.impl.CloningFacility,"Using organic and food to clone crew, greatly increase colony growth rate",3000,EXTREME
+cloningfacility,Cloning Facility,150,90,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryorevival.png,mod.industryoverhaul.impl.CloningFacility,"Using resources to clone crew, greatly increase colony growth rate",3000,EXTREME
 # Upgrade resource conditions,,,,,,,,,,,,,,
 upgradebase,Resource condition modifiers,50,1,,0,,,"upgrade, parent_item, unraidable, structure",upgrade,,mod.industryoverhaul.MockIndustry,"Add several upgrade options",3000,
 upgradeoresparse,Upgrade to sparse ore,50,1,,0,,,"upgrade, sub_item, unraidable, structure",,graphics/icons/industry/mining_low.png,mod.industryoverhaul.resources.ore.OreSparse,"Create sparse ore deposit.",3000,

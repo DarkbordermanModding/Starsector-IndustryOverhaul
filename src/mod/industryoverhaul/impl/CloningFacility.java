@@ -66,4 +66,16 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
             tooltip.addPara("Population growth: %s", opad, h, "+" + (float)bonus + "%");
         }
     }
+
+    public void addImproveDesc(TooltipMakerAPI info, ImprovementDescriptionMode mode) {
+        float opad = 10f;
+        Color highlight = Misc.getHighlightColor();
+
+        String str = "2.66";
+
+        info.addPara("Incrase additional %s%% growth rate.", 0f, highlight, str);
+
+        info.addSpacer(opad);
+        super.addImproveDesc(info, mode);
+    }
 }
