@@ -27,6 +27,11 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
     }
 
     @Override
+    public boolean isHidden() {
+        return market.getSize() == Global.getSettings().getInt("maxColonySize");
+    }
+
+    @Override
     protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
         return isFunctional();
     }
@@ -50,7 +55,6 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
         }
 
         if(market.getSize() == Global.getSettings().getInt("maxColonySize")){
-            setHidden(true);
             upkeep.modifyMult(getModId(), 0f);
             demand(Commodities.FOOD, 0);
             demand(Commodities.ORGANICS, 0);
