@@ -13,7 +13,7 @@ import com.fs.starfarer.api.util.Misc;
 
 public class CloningFacility extends BaseIndustry implements MarketImmigrationModifier{
 
-    public static float IMMIGRATION_MULPILIER = 2000;
+    public static float IMMIGRATION_MULPILIER = 3;
 
     @Override
     public boolean canImprove() { return true; }
@@ -41,8 +41,8 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
         demand(Commodities.CREW, size);
         demand(Commodities.SUPPLIES, size);
 
-        if (isImproved()) IMMIGRATION_MULPILIER = 3;
-        else IMMIGRATION_MULPILIER = 2000;
+        if (isImproved()) IMMIGRATION_MULPILIER = 6;
+        else IMMIGRATION_MULPILIER = 3;
 
         if (!isFunctional()) {
             supply.clear();
@@ -90,7 +90,7 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
         float opad = 10f;
         Color highlight = Misc.getHighlightColor();
 
-        String str = "2.66";
+        String str = "8";
 
         info.addPara("Incrase additional %s%% growth rate.", 0f, highlight, str);
 
