@@ -2,6 +2,7 @@ package mod.industryoverhaul.impl;
 
 import java.awt.Color;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketImmigrationModifier;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
@@ -12,10 +13,18 @@ import com.fs.starfarer.api.util.Misc;
 
 public class CloningFacility extends BaseIndustry implements MarketImmigrationModifier{
 
-    public static float IMMIGRATION_MULPILIER = 2;
+    public static float IMMIGRATION_MULPILIER = 2000;
 
     @Override
     public boolean canImprove() { return true; }
+
+    @Override
+    public boolean showWhenUnavailable(){return false;}
+
+    @Override
+    public boolean isAvailableToBuild() {
+        return market.getSize() < Global.getSettings().getInt("maxColonySize");
+    }
 
     @Override
     protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
@@ -33,10 +42,20 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
         demand(Commodities.SUPPLIES, size);
 
         if (isImproved()) IMMIGRATION_MULPILIER = 3;
-        else IMMIGRATION_MULPILIER = 2;
+        else IMMIGRATION_MULPILIER = 2000;
 
         if (!isFunctional()) {
             supply.clear();
+            unapply();
+        }
+
+        if(market.getSize() == Global.getSettings().getInt("maxColonySize")){
+            setHidden(true);
+            upkeep.modifyMult(getModId(), 0f);
+            demand(Commodities.FOOD, 0);
+            demand(Commodities.ORGANICS, 0);
+            demand(Commodities.CREW, 0);
+            demand(Commodities.SUPPLIES, 0);
             unapply();
         }
     }
