@@ -61,6 +61,7 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
             demand(Commodities.CREW, 0);
             demand(Commodities.SUPPLIES, 0);
             unapply();
+            getMarket().removeIndustry(getId(), null, false);
         }
     }
 
