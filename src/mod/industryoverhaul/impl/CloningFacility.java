@@ -46,8 +46,8 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
         demand(Commodities.CREW, size);
         demand(Commodities.SUPPLIES, size);
 
-        if (isImproved()) IMMIGRATION_MULPILIER = 6;
-        else IMMIGRATION_MULPILIER = 3;
+        if (isImproved()) IMMIGRATION_MULPILIER = 12;
+        else IMMIGRATION_MULPILIER = 6;
 
         if (!isFunctional()) {
             supply.clear();
@@ -86,7 +86,7 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
             Color h = Misc.getHighlightColor();
             float opad = 10f;
             double bonus = 2.66 * IMMIGRATION_MULPILIER;
-            tooltip.addPara("Population growth: %s", opad, h, "+" + (float)bonus + "%");
+            tooltip.addPara("Population growth: %s", opad, h, "+" + (float)bonus + "% when hazard difficulty is 100%");
         }
     }
 
@@ -94,7 +94,7 @@ public class CloningFacility extends BaseIndustry implements MarketImmigrationMo
         float opad = 10f;
         Color highlight = Misc.getHighlightColor();
 
-        String str = "8";
+        String str = "16";
 
         info.addPara("Incrase additional %s%% growth rate.", 0f, highlight, str);
 
