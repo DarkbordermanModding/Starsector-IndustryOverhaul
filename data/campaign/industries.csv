@@ -12,6 +12,8 @@ organharvest,Organ Harvesting,50,30,,5,,,"structure, industry, industrial",,grap
 drugproduction,Drug Production,50,30,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryosanctum.png,mod.industryoverhaul.impl.DrugProduction,"Using organic resources to produce recreational drugs.",3000,EXTREME
 cloningfacility,Cloning Facility,50,30,,5,,,"structure, industry, industrial",,graphics/icons/industry/cryorevival.png,mod.industryoverhaul.impl.CloningFacility,"Using resources to clone crew, greatly increase colony growth rate",3000,EXTREME
 reverse_engineering_yard,Reverse Engineering Yard,50,30,,5,,,"structure",,graphics/icons/industry/cryorevival.png,mod.industryoverhaul.impl.ReverseEngineeringYard,"Convert ships, weapons, and fighters into blueprints",3000,EXTREME
+space_defense_hub,Space Defense Hub,50,30,,5,,,"structure, militarybase",,graphics/icons/industry/cryorevival.png,mod.industryoverhaul.impl.SpaceDefenseHub,"Convert ships, weapons, and fighters into blueprints",3000,EXTREME
+
 ,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,
 # Vanilla resource conditions,,,,,,,,,,,,,,
