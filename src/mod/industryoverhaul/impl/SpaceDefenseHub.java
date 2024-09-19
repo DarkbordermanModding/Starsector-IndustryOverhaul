@@ -43,36 +43,31 @@ import com.fs.starfarer.api.util.Pair;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
 public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, FleetEventListener{
-    public static float OFFICER_PROB_MOD_PATROL_HQ = 0.1f;
-    public static float OFFICER_PROB_MOD_MILITARY_BASE = 0.2f;
-    public static float OFFICER_PROB_MOD_HIGH_COMMAND = 0.3f;
-    
-    
+
     public static float DEFENSE_BONUS_PATROL = 0.1f;
     public static float DEFENSE_BONUS_MILITARY = 0.2f;
     public static float DEFENSE_BONUS_COMMAND = 0.3f;
-    
+
     public static int IMPROVE_NUM_PATROLS_BONUS = 1;
-    
+
     public void apply() {
-        
         int size = market.getSize();
-        
+
         boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
         boolean militaryBase = getSpec().hasTag(Industries.TAG_MILITARY);
         boolean command = getSpec().hasTag(Industries.TAG_COMMAND);
-        
+
         super.apply(!patrol);
         if (patrol) {
             applyIncomeAndUpkeep(3);
         }
-        
+
         int extraDemand = 0;
-        
+
         int light = 1;
         int medium = 0;
         int heavy = 0;
-        
+
         if (patrol) {
             extraDemand = 0;
         } else if (militaryBase) {
@@ -80,7 +75,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         } else if (command) {
             extraDemand = 3;
         }
-        
+
         if (patrol) {
             light = 2;
             medium = 0;
@@ -116,32 +111,27 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
                 heavy = 0;
             }
         }
-        
+
         if (militaryBase || command) {
             //light++;
             medium = Math.max(medium + 1, size / 2 - 1);
             heavy = Math.max(heavy, medium - 1);
         }
-        
+
         if (command) {
             medium++;
             heavy++;
         }
-        
-//        if (market.getId().equals("jangala")) {
-//            System.out.println("wefwefwe");
-//        }
-        
+
 //        light += 5;
 //        medium += 3;
 //        heavy += 2;
-        
+
 //        float spawnRateMultStability = getStabilitySpawnRateMult();
 //        if (spawnRateMultStability != 1) {
 //            market.getStats().getDynamic().getStat(Stats.COMBAT_FLEET_SPAWN_RATE_MULT).modifyMult(getModId(), spawnRateMultStability);
 //        }
-        
-        
+
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_LIGHT_MOD).modifyFlat(getModId(), light);
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_MEDIUM_MOD).modifyFlat(getModId(), medium);
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_HEAVY_MOD).modifyFlat(getModId(), heavy);
@@ -149,20 +139,20 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         demand(Commodities.SUPPLIES, size - 1 + extraDemand);
         demand(Commodities.FUEL, size - 1 + extraDemand);
         demand(Commodities.SHIPS, size - 1 + extraDemand);
-        
+
         supply(Commodities.CREW, size);
-        
+
         if (!patrol) {
             //demand(Commodities.HAND_WEAPONS, size);
             supply(Commodities.MARINES, size);
-            
+
 //            Pair<String, Integer> deficit = getMaxDeficit(Commodities.HAND_WEAPONS);
 //            applyDeficitToProduction(1, deficit, Commodities.MARINES);
         }
-        
-        
+
+
         modifyStabilityWithBaseMod();
-        
+
         float mult = getDeficitMult(Commodities.SUPPLIES);
         String extra = "";
         if (mult != 1) {
@@ -174,21 +164,15 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         else if (command) bonus = DEFENSE_BONUS_COMMAND;
         market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD)
                         .modifyMult(getModId(), 1f + bonus * mult, getNameForModifier() + extra);
-        
-        
+
+
         MemoryAPI memory = market.getMemoryWithoutUpdate();
         Misc.setFlagWithReason(memory, MemFlags.MARKET_PATROL, getModId(), true, -1);
-        
+
         if (militaryBase || command) {
             Misc.setFlagWithReason(memory, MemFlags.MARKET_MILITARY, getModId(), true, -1);
         }
-        
-        float officerProb = OFFICER_PROB_MOD_PATROL_HQ;
-        if (militaryBase) officerProb = OFFICER_PROB_MOD_MILITARY_BASE;
-        else if (command) officerProb = OFFICER_PROB_MOD_HIGH_COMMAND;
-        market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).modifyFlat(getModId(0), officerProb);
-        
-        
+
         if (!isFunctional()) {
             supply.clear();
             unapply();
@@ -199,34 +183,34 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     @Override
     public void unapply() {
         super.unapply();
-        
+
         MemoryAPI memory = market.getMemoryWithoutUpdate();
         Misc.setFlagWithReason(memory, MemFlags.MARKET_PATROL, getModId(), false, -1);
         Misc.setFlagWithReason(memory, MemFlags.MARKET_MILITARY, getModId(), false, -1);
-        
+
         unmodifyStabilityWithBaseMod();
-        
+
         //market.getStats().getDynamic().getStat(Stats.COMBAT_FLEET_SPAWN_RATE_MULT).unmodifyMult(getModId());
         //market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MULT).unmodifyFlat(getModId());
-        
+
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_LIGHT_MOD).unmodifyFlat(getModId());
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_MEDIUM_MOD).unmodifyFlat(getModId());
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_HEAVY_MOD).unmodifyFlat(getModId());
-        
+
         market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyMult(getModId());
-        
+
         market.getStats().getDynamic().getMod(Stats.OFFICER_PROB_MOD).unmodifyFlat(getModId(0));
     }
-    
+
     protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
         return mode != IndustryTooltipMode.NORMAL || isFunctional();
     }
-    
+
     @Override
     protected void addPostDemandSection(TooltipMakerAPI tooltip, boolean hasDemand, IndustryTooltipMode mode) {
         if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
             addStabilityPostDemandSection(tooltip, hasDemand, mode);
-            
+
             boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
             boolean command = getSpec().hasTag(Industries.TAG_COMMAND);
             float bonus = DEFENSE_BONUS_MILITARY;
@@ -235,7 +219,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
             addGroundDefensesImpactSection(tooltip, bonus, Commodities.SUPPLIES);
         }
     }
-    
+
     @Override
     protected int getBaseStabilityMod() {
         boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
@@ -251,22 +235,20 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         }
         return stabilityMod;
     }
-    
+
     public String getNameForModifier() {
 //        boolean patrol = Industries.PATROLHQ.equals(getId());
 //        if (patrol) return getSpec().getName();
         if (getSpec().getName().contains("HQ")) {
             return getSpec().getName();
         }
-        
         return Misc.ucFirst(getSpec().getName().toLowerCase());
     }
-    
 
 //    protected float getStabilitySpawnRateMult() {
 //        return Math.max(0.2f, market.getStabilityValue() / 10f);
 //    }
-    
+
     @Override
     protected Pair<String, Integer> getStabilityAffectingDeficit() {
         boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
