@@ -52,65 +52,42 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     public void apply() {
         int size = market.getSize();
 
-        boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
-        boolean militaryBase = getSpec().hasTag(Industries.TAG_MILITARY);
-        boolean command = getSpec().hasTag(Industries.TAG_COMMAND);
-
-        super.apply(!patrol);
-        if (patrol) {
-            applyIncomeAndUpkeep(3);
-        }
-
         int light = 1;
-        int medium = 0;
-        int heavy = 0;
+        int medium = 1;
+        int heavy = 1;
 
-        if (patrol) {
+        if (size <= 3) {
             light = 2;
             medium = 0;
             heavy = 0;
-        } else {
-            if (size <= 3) {
-                light = 2;
-                medium = 0;
-                heavy = 0;
-            } else if (size == 4) {
-                light = 2;
-                medium = 0;
-                heavy = 0;
-            } else if (size == 5) {
-                light = 2;
-                medium = 1;
-                heavy = 0;
-            } else if (size == 6) {
-                light = 3;
-                medium = 1;
-                heavy = 0;
-            } else if (size == 7) {
-                light = 3;
-                medium = 2;
-                heavy = 0;
-            } else if (size == 8) {
-                light = 3;
-                medium = 3;
-                heavy = 0;
-            } else if (size >= 9) {
-                light = 4;
-                medium = 3;
-                heavy = 0;
-            }
+        } else if (size == 4) {
+            light = 2;
+            medium = 0;
+            heavy = 0;
+        } else if (size == 5) {
+            light = 2;
+            medium = 1;
+            heavy = 0;
+        } else if (size == 6) {
+            light = 3;
+            medium = 1;
+            heavy = 0;
+        } else if (size == 7) {
+            light = 3;
+            medium = 2;
+            heavy = 0;
+        } else if (size == 8) {
+            light = 3;
+            medium = 3;
+            heavy = 0;
+        } else if (size >= 9) {
+            light = 4;
+            medium = 3;
+            heavy = 0;
         }
 
-        if (militaryBase || command) {
-            //light++;
-            medium = Math.max(medium + 1, size / 2 - 1);
-            heavy = Math.max(heavy, medium - 1);
-        }
-
-        if (command) {
-            medium++;
-            heavy++;
-        }
+        medium = Math.max(medium + 1, size / 2 - 1);
+        heavy = Math.max(heavy, medium - 1);
 
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_LIGHT_MOD).modifyFlat(getModId(), light);
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_MEDIUM_MOD).modifyFlat(getModId(), medium);
@@ -130,17 +107,12 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         modifyStabilityWithBaseMod();
 
         MemoryAPI memory = market.getMemoryWithoutUpdate();
-        Misc.setFlagWithReason(memory, MemFlags.MARKET_PATROL, getModId(), true, -1);
-
-        if (militaryBase || command) {
-            Misc.setFlagWithReason(memory, MemFlags.MARKET_MILITARY, getModId(), true, -1);
-        }
+        Misc.setFlagWithReason(memory, MemFlags.MARKET_MILITARY, getModId(), true, -1);
 
         if (!isFunctional()) {
             supply.clear();
             unapply();
         }
-
     }
 
     @Override
@@ -148,7 +120,6 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         super.unapply();
 
         MemoryAPI memory = market.getMemoryWithoutUpdate();
-        Misc.setFlagWithReason(memory, MemFlags.MARKET_PATROL, getModId(), false, -1);
         Misc.setFlagWithReason(memory, MemFlags.MARKET_MILITARY, getModId(), false, -1);
 
         unmodifyStabilityWithBaseMod();
@@ -324,12 +295,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         }
     }
 
-
-    public void reportAboutToBeDespawnedByRouteManager(RouteData route) {
-//        if (route.getActiveFleet() == null) return;
-//        PatrolFleetData custom = (PatrolFleetData) route.getCustom();
-//        custom.despawnFP = route.getActiveFleet().getFleetPoints();
-    }
+    public void reportAboutToBeDespawnedByRouteManager(RouteData route) {}
 
     public boolean shouldRepeat(RouteData route) {
 //        PatrolFleetData custom = (PatrolFleetData) route.getCustom();
@@ -377,9 +343,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     }
 
 
-    public void reportBattleOccurred(CampaignFleetAPI fleet, CampaignFleetAPI primaryWinner, BattleAPI battle) {
-
-    }
+    public void reportBattleOccurred(CampaignFleetAPI fleet, CampaignFleetAPI primaryWinner, BattleAPI battle) {}
 
     public void reportFleetDespawnedToListener(CampaignFleetAPI fleet, FleetDespawnReason reason, Object param) {
         if (!isFunctional()) return;
