@@ -152,7 +152,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     }
 
     @Override
-    protected int getBaseStabilityMod() { return 3; }
+    protected int getBaseStabilityMod() {return 3;}
 
     @Override
     protected Pair<String, Integer> getStabilityAffectingDeficit() {
@@ -197,9 +197,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         return canBuild;
     }
 
-    public String getUnavailableReason() {
-        return "Requires a functional spaceport";
-    }
+    public String getUnavailableReason() {return "Requires a functional spaceport";}
 
     //protected IntervalUtil tracker = new IntervalUtil(5f, 9f);
     protected IntervalUtil tracker = new IntervalUtil(Global.getSettings().getFloat("averagePatrolSpawnInterval") * 0.7f,
@@ -257,12 +255,6 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         }
 
         if (tracker.intervalElapsed()) {
-//            if (market.isPlayerOwned()) {
-//                System.out.println("ewfwefew");
-//            }
-//            if (market.getName().equals("Jangala")) {
-//                System.out.println("wefwefe");
-//            }
             String sid = getRouteSourceId();
 
             int light = getCount(PatrolType.FAST);
@@ -361,18 +353,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     }
 
     public static int getPatrolCombatFP(PatrolType type, Random random) {
-        float combat = 0;
-        switch (type) {
-        case FAST:
-            combat = Math.round(3f + (float) random.nextFloat() * 2f) * 5f;
-            break;
-        case COMBAT:
-            combat = Math.round(6f + (float) random.nextFloat() * 3f) * 5f;
-            break;
-        case HEAVY:
-            combat = Math.round(10f + (float) random.nextFloat() * 5f) * 5f;
-            break;
-        }
+        float combat = Math.round(10f + (float) random.nextFloat() * 5f) * 5f;
         return (int) Math.round(combat);
     }
 
