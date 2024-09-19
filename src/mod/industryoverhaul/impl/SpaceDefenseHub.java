@@ -11,7 +11,6 @@ import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.PlanetAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
-import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
@@ -34,7 +33,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Industries;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import com.fs.starfarer.api.impl.campaign.ids.Strings;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.RaidDangerLevel;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
@@ -521,53 +519,6 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
 
         return fleet;
     }
-
-    public static float ALPHA_CORE_BONUS = 0.25f;
-    @Override
-    protected void applyAlphaCoreModifiers() {
-        market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyMult(
-                getModId(), 1f + ALPHA_CORE_BONUS, "Alpha core (" + INDUSTRY_NAME + ")");
-    }
-
-    @Override
-    protected void applyNoAICoreModifiers() {
-        market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).unmodifyMult(getModId());
-    }
-
-    @Override
-    protected void applyAlphaCoreSupplyAndDemandModifiers() {
-        demandReduction.modifyFlat(getModId(0), DEMAND_REDUCTION, "Alpha core");
-    }
-
-    protected void addAlphaCoreDescription(TooltipMakerAPI tooltip, AICoreDescriptionMode mode) {
-        float opad = 10f;
-        Color highlight = Misc.getHighlightColor();
-
-        String pre = "Alpha-level AI core currently assigned. ";
-        if (mode == AICoreDescriptionMode.MANAGE_CORE_DIALOG_LIST || mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
-            pre = "Alpha-level AI core. ";
-        }
-        float a = ALPHA_CORE_BONUS;
-        //String str = "" + (int)Math.round(a * 100f) + "%";
-        String str = Strings.X + (1f + a);
-
-        if (mode == AICoreDescriptionMode.INDUSTRY_TOOLTIP) {
-            CommoditySpecAPI coreSpec = Global.getSettings().getCommoditySpec(aiCoreId);
-            TooltipMakerAPI text = tooltip.beginImageWithText(coreSpec.getIconName(), 48);
-            text.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. " +
-                    "Increases fleet size by %s.", 0f, highlight,
-                    "" + (int)((1f - UPKEEP_MULT) * 100f) + "%", "" + DEMAND_REDUCTION,
-                    str);
-            tooltip.addImageWithText(opad);
-            return;
-        }
-
-        tooltip.addPara(pre + "Reduces upkeep cost by %s. Reduces demand by %s unit. " +
-                "Increases fleet size by %s.", opad, highlight,
-                "" + (int)((1f - UPKEEP_MULT) * 100f) + "%", "" + DEMAND_REDUCTION,
-                str);
-    }
-
 
     @Override
     public boolean canImprove() {
