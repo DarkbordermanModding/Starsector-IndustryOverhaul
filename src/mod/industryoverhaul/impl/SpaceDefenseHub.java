@@ -44,6 +44,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 
 public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, FleetEventListener{
 
+    public static String INDUSTRY_NAME = "Space Defense Hub";
     public static float DEFENSE_BONUS_PATROL = 0.1f;
     public static float DEFENSE_BONUS_MILITARY = 0.2f;
     public static float DEFENSE_BONUS_COMMAND = 0.3f;
@@ -61,8 +62,6 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         if (patrol) {
             applyIncomeAndUpkeep(3);
         }
-
-        int extraDemand = 2;
 
         int light = 1;
         int medium = 0;
@@ -119,9 +118,9 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_MEDIUM_MOD).modifyFlat(getModId(), medium);
         market.getStats().getDynamic().getMod(Stats.PATROL_NUM_HEAVY_MOD).modifyFlat(getModId(), heavy);
 
-        market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(getModId(), market.getSize(), "Space Defense Hub");
-        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(), market.getSize() * 100, "Space Defense Hub");
-        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyMult(getModId(), market.getSize(), "Space Defense Hub");
+        market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyFlat(getModId(), market.getSize(), INDUSTRY_NAME);
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyFlat(getModId(), market.getSize() * 100, INDUSTRY_NAME);
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyMult(getModId(), market.getSize(), INDUSTRY_NAME);
 
         demand(Commodities.SUPPLIES, size + 1);
         demand(Commodities.FUEL, size + 1);
@@ -184,29 +183,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     }
 
     @Override
-    protected int getBaseStabilityMod() {
-        boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
-        boolean militaryBase = getSpec().hasTag(Industries.TAG_MILITARY);
-        boolean command = getSpec().hasTag(Industries.TAG_COMMAND);
-        int stabilityMod = 1;
-        if (patrol) {
-            stabilityMod = 1;
-        } else if (militaryBase) {
-            stabilityMod = 2;
-        } else if (command) {
-            stabilityMod = 2;
-        }
-        return stabilityMod;
-    }
-
-    public String getNameForModifier() {
-//        boolean patrol = Industries.PATROLHQ.equals(getId());
-//        if (patrol) return getSpec().getName();
-        if (getSpec().getName().contains("HQ")) {
-            return getSpec().getName();
-        }
-        return Misc.ucFirst(getSpec().getName().toLowerCase());
-    }
+    protected int getBaseStabilityMod() { return 3; }
 
     @Override
     protected Pair<String, Integer> getStabilityAffectingDeficit() {
@@ -549,7 +526,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     @Override
     protected void applyAlphaCoreModifiers() {
         market.getStats().getDynamic().getMod(Stats.COMBAT_FLEET_SIZE_MULT).modifyMult(
-                getModId(), 1f + ALPHA_CORE_BONUS, "Alpha core (" + getNameForModifier() + ")");
+                getModId(), 1f + ALPHA_CORE_BONUS, "Alpha core (" + INDUSTRY_NAME + ")");
     }
 
     @Override
