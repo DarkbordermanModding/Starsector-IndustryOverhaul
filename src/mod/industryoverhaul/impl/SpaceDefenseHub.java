@@ -1,6 +1,5 @@
 package mod.industryoverhaul.impl;
 
-import java.awt.Color;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -38,7 +37,6 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
-import com.fs.starfarer.api.util.WeightedRandomPicker;
 
 public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, FleetEventListener{
 
@@ -200,8 +198,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     public String getUnavailableReason() {return "Requires a functional spaceport";}
 
     //protected IntervalUtil tracker = new IntervalUtil(5f, 9f);
-    protected IntervalUtil tracker = new IntervalUtil(Global.getSettings().getFloat("averagePatrolSpawnInterval") * 0.7f,
-                                                      Global.getSettings().getFloat("averagePatrolSpawnInterval") * 1.3f);
+    protected IntervalUtil tracker = new IntervalUtil(6f, 6f);
 
     protected float returningPatrolValue = 0f;
 
@@ -257,22 +254,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
         if (tracker.intervalElapsed()) {
             String sid = getRouteSourceId();
 
-            int light = getCount(PatrolType.FAST);
-            int medium = getCount(PatrolType.COMBAT);
-            int heavy = getCount(PatrolType.HEAVY);
-
-            int maxLight = getMaxPatrols(PatrolType.FAST);
-            int maxMedium = getMaxPatrols(PatrolType.COMBAT);
-            int maxHeavy = getMaxPatrols(PatrolType.HEAVY);
-
-            WeightedRandomPicker<PatrolType> picker = new WeightedRandomPicker<PatrolType>();
-            picker.add(PatrolType.HEAVY, maxHeavy - heavy);
-            picker.add(PatrolType.COMBAT, maxMedium - medium);
-            picker.add(PatrolType.FAST, maxLight - light);
-
-            if (picker.isEmpty()) return;
-
-            PatrolType type = picker.pick();
+            PatrolType type = PatrolType.HEAVY;
             PatrolFleetData custom = new PatrolFleetData(type);
 
             OptionalFleetData extra = new OptionalFleetData(market);
@@ -282,7 +264,7 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
             extra.strength = (float) getPatrolCombatFP(type, route.getRandom());
             extra.strength = Misc.getAdjustedStrength(extra.strength, market);
 
-            float patrolDays = 35f + (float) Math.random() * 10f;
+            float patrolDays = 30;
             route.addSegment(new RouteSegment(patrolDays, market.getPrimaryEntity()));
         }
     }
@@ -460,45 +442,6 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
     @Override
     public boolean canImprove() {
         return true;
-    }
-
-    protected void applyImproveModifiers() {
-
-        String key = "mil_base_improve";
-        if (isImproved()) {
-            boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
-//            boolean militaryBase = getSpec().hasTag(Industries.TAG_MILITARY);
-//            boolean command = getSpec().hasTag(Industries.TAG_COMMAND);
-
-            if (patrol) {
-                market.getStats().getDynamic().getMod(Stats.PATROL_NUM_MEDIUM_MOD).modifyFlat(key, IMPROVE_NUM_PATROLS_BONUS);
-            } else {
-                market.getStats().getDynamic().getMod(Stats.PATROL_NUM_HEAVY_MOD).modifyFlat(key, IMPROVE_NUM_PATROLS_BONUS);
-            }
-        } else {
-            market.getStats().getDynamic().getMod(Stats.PATROL_NUM_MEDIUM_MOD).unmodifyFlat(key);
-            market.getStats().getDynamic().getMod(Stats.PATROL_NUM_HEAVY_MOD).unmodifyFlat(key);
-        }
-    }
-
-    public void addImproveDesc(TooltipMakerAPI info, ImprovementDescriptionMode mode) {
-        float opad = 10f;
-        Color highlight = Misc.getHighlightColor();
-
-        String str = "" + (int) IMPROVE_NUM_PATROLS_BONUS;
-
-        boolean patrol = getSpec().hasTag(Industries.TAG_PATROL);
-        String type = "medium patrols";
-        if (!patrol) type = "heavy patrols";
-
-        if (mode == ImprovementDescriptionMode.INDUSTRY_TOOLTIP) {
-            info.addPara("Number of " + type + " launched increased by %s.", 0f, highlight, str);
-        } else {
-            info.addPara("Increases the number of " + type + " launched by %s.", 0f, highlight, str);
-        }
-
-        info.addSpacer(opad);
-        super.addImproveDesc(info, mode);
     }
 
     @Override
