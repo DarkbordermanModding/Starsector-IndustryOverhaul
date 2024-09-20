@@ -426,7 +426,10 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
             params.timestamp = route.getTimestamp();
         }
         params.random = random;
+        params.averageSMods = 2;
+        params.qualityOverride = 1f;
         CampaignFleetAPI fleet = FleetFactoryV3.createFleet(params);
+        fleet.setName(INDUSTRY_NAME + " Elite Fleet");
 
         if (fleet == null || fleet.isEmpty()) return null;
 
@@ -445,19 +448,8 @@ public class SpaceDefenseHub extends BaseIndustry implements RouteFleetSpawner, 
             }
         }
 
-        String postId = Ranks.POST_PATROL_COMMANDER;
-        String rankId = Ranks.SPACE_COMMANDER;
-        switch (type) {
-        case FAST:
-            rankId = Ranks.SPACE_LIEUTENANT;
-            break;
-        case COMBAT:
-            rankId = Ranks.SPACE_COMMANDER;
-            break;
-        case HEAVY:
-            rankId = Ranks.SPACE_CAPTAIN;
-            break;
-        }
+        String postId = Ranks.POST_FLEET_COMMANDER;
+        String rankId = Ranks.SPACE_CAPTAIN;
 
         fleet.getCommander().setPostId(postId);
         fleet.getCommander().setRankId(rankId);
